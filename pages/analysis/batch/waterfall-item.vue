@@ -4,7 +4,7 @@
 			v-for="(numVal, index) in flowData.column" :key="numVal">
 			<view class="item-box" v-for="(item, j) in flowData[`column_${index + 1}`]" :key="j">
 				<image class="img-tip" :src="item" mode="widthFix" @click="previewImage(item)" />
-
+				<view class="img-tip-btn" @tap="handleDownloads(item,'img')">点击保存</view>
 			</view>
 		</view>
 	</view>
