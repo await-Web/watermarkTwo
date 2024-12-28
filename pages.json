@@ -1,0 +1,123 @@
+{
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^kx(.*)": "@/components/kx/$1/index.vue"
+		}
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "短视频去水印"
+			}
+		},
+		{
+			"path": "pages/index/my",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"subPackages": [{
+		"root": "pages/analysis",
+		"pages": [{
+			"path": "analysisDetial/index",
+			"style": {
+				"navigationBarTitleText": "提取完毕"
+			}
+		}, {
+			"path": "batch/index",
+			"style": {
+				"navigationBarTitleText": "批量解析"
+			}
+		}, {
+			"path": "mdFive/index",
+			"style": {
+				"navigationBarTitleText": "修改MD5"
+			}
+		}, {
+			"path": "wallpaper/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}]
+	}, {
+		"root": "pages/my",
+		"pages": [{
+				"path": "dataLog/index",
+				"style": {
+					"navigationBarTitleText": "历史记录"
+				}
+			},
+			{
+				"path": "personalDetails/index",
+				"style": {
+					"navigationBarTitleText": "个人信息"
+				}
+			}
+		]
+	}],
+	"preloadRule": {
+		"pages/my/dataLog/index": {
+			"network": "all",
+			"packages": [
+				"__APP__"
+			]
+		},
+		"pages/my/personalDetails/index": {
+			"network": "all",
+			"packages": [
+				"__APP__"
+			]
+		}
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FFF",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#303133",
+		"selectedColor": "#74dbef",
+		"backgroundColor": "#ffffff",
+		"list": [
+			// 	{
+			// 	"text": "首页",
+			// 	"pagePath": "pages/index/index",
+			// 	"iconPath": "static/image/home.png",
+			// 	"selectedIconPath": "static/image/home-h.png"
+			// }, 
+			{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/image/home.png",
+				"selectedIconPath": "static/image/home-h.png"
+			}, {
+				"text": "我的",
+				"pagePath": "pages/index/my",
+				"iconPath": "static/image/self.png",
+				"selectedIconPath": "static/image/self-h.png"
+			}
+		]
+	},
+	"uniIdRouter": {
+		"loginPage": "pages/login/login",
+		"needLogin": [
+			// "pages/index/.*",
+			"pages/mdFive/.*",
+			"pages/my/.*",
+			"pages/index/index",
+			"pages/index/my"
+		]
+	}
+}

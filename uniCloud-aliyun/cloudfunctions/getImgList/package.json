@@ -1,0 +1,7 @@
+{
+  "name": "getImgList",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

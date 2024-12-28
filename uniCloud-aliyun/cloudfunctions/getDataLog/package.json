@@ -1,0 +1,7 @@
+{
+  "name": "initDataLog",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

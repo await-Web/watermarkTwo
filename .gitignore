@@ -1,0 +1,16 @@
+unpackage/dist
+.hbuilderx/launch.json
+.vite/deps
+node_modules/.vite
+# 忽略编译生成的文件
+*.class
+*.exe
+*.dll
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+unpackage
+

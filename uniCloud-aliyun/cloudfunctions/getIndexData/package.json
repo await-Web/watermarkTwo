@@ -1,0 +1,7 @@
+{
+  "name": "getIndexData",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}
