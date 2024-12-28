@@ -13,7 +13,7 @@ module.exports = {
 		} = data
 		// 初始化实例
 		let uniSubscribemsg = new UniSubscribemsg({
-			dcloudAppid: "__UNI__CBF6C30",
+			dcloudAppid: "__UNI__C4DFF39",
 			provider: "weixin-mp",
 		});
 		// 发送订阅消息

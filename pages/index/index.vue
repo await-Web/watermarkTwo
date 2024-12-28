@@ -91,9 +91,9 @@
 	export default {
 		data() {
 			return {
-				// url: "5 365去水印助手发布了一篇小红书笔记，快来看吧！ 😆 tfV4QR6Wqo0X0LZ 😆 http://xhslink.com/a/tyU2rTEncSiW，复制本条信息，打开【小红书】App查看精彩内容！",
+				// url: "5 365去水印助手发布了一篇小红书笔记，快来看吧！ ?? tfV4QR6Wqo0X0LZ ?? http://xhslink.com/a/tyU2rTEncSiW，复制本条信息，打开【小红书】App查看精彩内容！",
 				// url: 'https://v.kuaishou.com/X8x7xF 出租半边床位"你附近100米的人 "你的女神已上线 "夸她就行 该作品在快手被播放过2.2万次，点击链接，打开【快手】直接观看！',
-				// url: '58 365去水印助手发布了一篇小红书笔记，快来看吧！ 😆 aCBhfKrXNijYQME 😆 https://xhslink.com/a/2bcRfA1WOyjW，复制本条信息，打开【小红书】App查看精彩内容！',
+				// url: '58 365去水印助手发布了一篇小红书笔记，快来看吧！ ?? aCBhfKrXNijYQME ?? https://xhslink.com/a/2bcRfA1WOyjW，复制本条信息，打开【小红书】App查看精彩内容！',
 				url: '',
 				todayCount: 0,
 				allCount: 0,
@@ -297,10 +297,10 @@
 
 				switch (type) {
 					case '1':
-						// navigateToMiniProgram('wx51f6121324b84fa8', '/pages/index/index');
+						// navigateToMiniProgram('wx307a4b6152c1100f', '/pages/index/index');
 						break;
 					case '2':
-						// navigateToMiniProgram('wx51f6121324b84fa8', '/pages/index/wallpaper');
+						// navigateToMiniProgram('wx307a4b6152c1100f', '/pages/index/wallpaper');
 						break;
 					case '3':
 						uni.navigateTo({

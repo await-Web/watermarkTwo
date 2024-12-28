@@ -29,7 +29,7 @@
             }
         ],
         "path": "",
-        "runtime": "Nodejs8",
+        "runtime": "Nodejs22",
         "frequencyLimitEnable": false,
         "blackListEnable": false
     }
