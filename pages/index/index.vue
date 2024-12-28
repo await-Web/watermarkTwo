@@ -2,9 +2,9 @@
 	<view class="tool-v">
 		<view class="statement u-text-center u-m-t-20">所有视频,图片归平台及作者所有，本应用不储存任何内容</view>
 		<!-- 首页 -->
-		<view class=" u-m-t-20 u-m-b-20" v-if="!isAdmin">
+		<!-- <view class=" u-m-t-20 u-m-b-20" v-if="!isAdmin">
 			<ad unit-id="adunit-e1ee755abb6484ae" ad-type="video" ad-theme="black"></ad>
-		</view>
+		</view> -->
 		<u-toast ref="uToast" />
 		<view class="tool-content">
 			<view class="u-m-t-20 url-input">

@@ -4,7 +4,7 @@
 			<u-tabs :list="list" :is-scroll="false" v-model="current" @change="change"></u-tabs>
 			<view class=" u-m-t-20 u-m-b-20">
 				<!-- 首页历史记录页横屏 -->
-				<ad-custom unit-id="adunit-c987449dc7a56c07" ad-intervals="30"></ad-custom>
+				<!-- <ad-custom unit-id="adunit-c987449dc7a56c07" ad-intervals="30"></ad-custom> -->
 			</view>
 		</view>
 		<mescroll-body ref="mescrollRef" @down="downCallback" :down="downOption" :sticky="false" @up="upCallback"

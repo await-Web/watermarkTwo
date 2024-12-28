@@ -2,9 +2,9 @@
 	<view class="page_v">
 		<view>
 			<!-- 解析完成页 -->
-			<view class=" u-m-t-20 u-m-b-20">
+			<!-- 	<view class=" u-m-t-20 u-m-b-20">
 				<ad-custom unit-id="adunit-25663b600ce971b2" ad-intervals="30"></ad-custom>
-			</view>
+			</view> -->
 			<view class="u-flex-col content  u-p-l-20 u-p-r-20">
 				<!-- 图片 -->
 				<view class="u-m-t-20 u-flex top-btn" v-if="imageAtlas?.length">

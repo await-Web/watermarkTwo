@@ -40,9 +40,9 @@
 			</view>
 		</view>
 		<!-- 个人中心 -->
-		<view class="wx-ad">
+		<!-- <view class="wx-ad">
 			<ad unit-id="adunit-a84b32b8fef5634c" ad-type="video" ad-theme="white"></ad>
-		</view>
+		</view> -->
 		<view class="bottom-box">
 			<view>{{version}}</view>
 			<view @click="setClipboardData">{{`uid:${uid}`}}</view>

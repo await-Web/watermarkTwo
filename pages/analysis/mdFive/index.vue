@@ -41,7 +41,7 @@
 			</view>
 			<!-- md52 -->
 			<view class=" u-m-t-20 u-m-b-20">
-				<ad unit-id="adunit-e0d943434e0f3b71" ad-type="video" ad-theme="black"></ad>
+				<!-- <ad unit-id="adunit-e0d943434e0f3b71" ad-type="video" ad-theme="black"></ad> -->
 			</view>
 		</view>
 		<kxCustomer></kxCustomer>

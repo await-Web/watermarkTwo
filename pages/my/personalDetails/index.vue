@@ -15,9 +15,9 @@
 					</uni-forms-item>
 				</uni-forms>
 				<!-- 个人信息详情页 -->
-				<view class="adContainer">
+				<!-- <view class="adContainer">
 					<ad unit-id="adunit-4081ba7987a6509b" ad-type="video" ad-theme="white"></ad>
-				</view>
+				</view> -->
 			</view>
 			<view class="" style="position: fixed;bottom: 0;width: 100%;">
 				<button type="primary" @click="submit()" :loading="loading">提交</button>

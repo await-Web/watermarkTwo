@@ -57,8 +57,7 @@
 		"oauth": {
 			"weixin": {
 				"appid": "wx307a4b6152c1100f",
-				/* 小程序ID */
-				"appsecret": "e98f504f6ea71d4742d2eb08cadb349b" /* 小程序密钥 */
+				"appsecret": "e98f504f6ea71d4742d2eb08cadb349b"
 			}
 		}
 	},
