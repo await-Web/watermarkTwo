@@ -41,11 +41,7 @@
 				<view class="u-m-t-20 video-box" v-else>
 					<video id="myVideo" :src="detialData.videoSrc" controls></video>
 				</view>
-				<!-- 描述 -->
-				<!-- <view class="u-flex-col u-m-t-10">
-					<text class="u-font-30 u-m-b-10">{{detialData.title}}</text>
-					<text>{{detialData.description}}</text>
-				</view> -->
+
 				<view class="u-flex btn-box" v-if="detialData.videoSrc && !detialData.isMP">
 					<u-button type="primary" size="medium"
 						@click="handleDownloads(detialData.videoSrc,'video')">下载视频</u-button>
@@ -53,6 +49,20 @@
 						@click="handleDownloads(detialData.imageSrc,'img')">下载封面</u-button>
 					<u-button type="success" size="medium" @click="copy(detialData.videoSrc)">复制无水印视频链接</u-button>
 					<u-button type="success" size="medium" @click="copy(detialData.imageSrc)">复制无水印封面链接</u-button>
+				</view>
+				<view class="u-m-t-20 url-input u-m-b-20">
+					<!-- 描述 -->
+					<view class="u-flex u-m-b-10">
+						<u-button size="mini" type="primary" @click="copy(title)" v-if="title">复制标题</u-button>
+						<u-button v-if="detialData.description" size="mini" type="primary"
+							@click="copy(detialData.description)" class="u-m-l-10">复制文案</u-button>
+					</view>
+					<view class="u-p-20 textareaStyle" v-if="title">
+						<u-input v-model="title" type="textarea" disabled maxlength="9999999" />
+					</view>
+					<view class="u-p-20 textareaStyle u-m-t-10" v-if="detialData.description">
+						<u-input v-model="detialData.description" disabled />
+					</view>
 				</view>
 			</view>
 		</view>
@@ -74,13 +84,15 @@
 				imageAtlas: [],
 				multipleUrlList: [],
 				isBatch: false,
-				userIds: ['66f7b4f321821bdf93d152f9']
+				userIds: ['66f7b4f321821bdf93d152f9'],
+				title: ''
 			}
 		},
 		onLoad(e) {
 			/* 插屏广告 */
 			this.tools.wxAd('adunit-11214e4ee21b294f')
 			this.detialData = JSON.parse(decodeURIComponent(e.config));
+			this.title = this.detialData.title
 			this.imageAtlas = JSON.parse(JSON.stringify(this.detialData.imageAtlas))
 			this.handleImageAtlas()
 		},
@@ -124,10 +136,11 @@
 			batchDownload() {
 				this.isBatch = true
 				this.batchCont = 0
-				this.$nextTick(() => {
-					if (this.isAdvertisement) return this.handleDownloads(this.batchCont, 'img')
-					this.showVideoAd()
-				})
+				this.handleDownloads(this.batchCont, 'img')
+				// this.$nextTick(() => {
+				// 	if (this.isAdvertisement) return this.handleDownloads(this.batchCont, 'img')
+				// 	this.showVideoAd()
+				// })
 			},
 			// 激励广告
 			showVideoAd() {
@@ -413,6 +426,22 @@
 				::v-deep button {
 					width: 340rpx !important;
 					margin-bottom: 20rpx;
+				}
+			}
+
+			.url-input {
+				width: 100%;
+				background-color: #fff;
+				padding: 20rpx;
+				border-radius: 10rpx;
+				box-shadow: 1rpx 1rpx 2rpx 1rpx rgba(0, 0, 0, 0.1);
+
+				.textareaStyle {
+					padding: 10rpx 20rpx;
+					max-height: 160rpx;
+					overflow-y: auto;
+					border: 1rpx solid #fcc31f;
+					border-radius: 8rpx;
 				}
 			}
 
