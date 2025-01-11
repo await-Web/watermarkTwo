@@ -6,6 +6,20 @@
 				<ad-custom unit-id="adunit-25663b600ce971b2" ad-intervals="30"></ad-custom>
 			</view> -->
 			<view class="u-flex-col content  u-p-l-20 u-p-r-20">
+				<!-- 描述 -->
+				<view class="u-m-t-20 url-input u-m-b-20">
+					<view class="u-flex u-m-b-10">
+						<u-button size="mini" type="primary" @click="copy(title)" v-if="title">复制标题</u-button>
+						<u-button v-if="detialData.description" size="mini" type="primary"
+							@click="copy(detialData.description)" class="u-m-l-10">复制文案</u-button>
+					</view>
+					<view class="u-p-20 textareaStyle" v-if="title">
+						<u-input v-model="title" type="textarea" disabled maxlength="9999999" />
+					</view>
+					<view class="u-p-20 textareaStyle u-m-t-10" v-if="detialData.description">
+						<u-input v-model="detialData.description" disabled />
+					</view>
+				</view>
 				<!-- 图片 -->
 				<view class="u-m-t-20 u-flex top-btn" v-if="imageAtlas?.length">
 					<view>
@@ -49,20 +63,6 @@
 						@click="handleDownloads(detialData.imageSrc,'img')">下载封面</u-button>
 					<u-button type="success" size="medium" @click="copy(detialData.videoSrc)">复制无水印视频链接</u-button>
 					<u-button type="success" size="medium" @click="copy(detialData.imageSrc)">复制无水印封面链接</u-button>
-				</view>
-				<view class="u-m-t-20 url-input u-m-b-20">
-					<!-- 描述 -->
-					<view class="u-flex u-m-b-10">
-						<u-button size="mini" type="primary" @click="copy(title)" v-if="title">复制标题</u-button>
-						<u-button v-if="detialData.description" size="mini" type="primary"
-							@click="copy(detialData.description)" class="u-m-l-10">复制文案</u-button>
-					</view>
-					<view class="u-p-20 textareaStyle" v-if="title">
-						<u-input v-model="title" type="textarea" disabled maxlength="9999999" />
-					</view>
-					<view class="u-p-20 textareaStyle u-m-t-10" v-if="detialData.description">
-						<u-input v-model="detialData.description" disabled />
-					</view>
 				</view>
 			</view>
 		</view>

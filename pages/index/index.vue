@@ -1,11 +1,10 @@
 <template>
 	<view class="tool-v">
 		<view class="statement u-text-center u-m-t-20">所有视频,图片归平台及作者所有，本应用不储存任何内容</view>
-		<!-- 首页 -->
-		<!-- <view class=" u-m-t-20 u-m-b-20" v-if="!isAdmin">
-			<ad unit-id="adunit-e1ee755abb6484ae" ad-type="video" ad-theme="black"></ad>
-		</view> -->
 		<u-toast ref="uToast" />
+		<view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
+			<u-swiper :list="imgList"></u-swiper>
+		</view>
 		<view class="tool-content">
 			<view class="u-m-t-20 url-input">
 				<view class="u-flex u-m-b-10">
@@ -39,21 +38,6 @@
 									:style="{ background:  '#ff0000' }" />
 								<text class="u-font-24 u-line-1 item-text">历史记录</text>
 							</view>
-							<!-- 	<view class="item u-flex-col u-col-center" @click="jumWebview('7')">
-								<text class="u-font-40 item-icon icon-kx icon-kx-jilu"
-									:style="{ background:  '#ff0000' }" />
-								<text class="u-font-24 u-line-1 item-text">美团红包</text>
-							</view> -->
-							<!-- <view class="item u-flex-col u-col-center" @click="jumWebview('1')">
-								<text class="u-font-40 item-icon icon-kx icon-kx-check-circle"
-									:style="{ background:  '#00ff00' }" />
-								<text class="u-font-24 u-line-1 item-text">无广告版</text>
-							</view> -->
-							<!-- <view class="item u-flex-col u-col-center" @click="jumWebview('2')">
-								<text class="u-font-40 item-icon icon-kx icon-kx-bizhi3"
-									:style="{ background:  '#55ffff' }" />
-								<text class="u-font-24 u-line-1 item-text">更多壁纸</text>
-							</view> -->
 							<view class="item u-flex-col u-col-center" @click="jumWebview('3')">
 								<text class="u-font-40 item-icon icon-kx icon-kx-MD51"
 									:style="{ background:  '#008cff' }" />
@@ -91,9 +75,16 @@
 	export default {
 		data() {
 			return {
-				// url: "5 365去水印助手发布了一篇小红书笔记，快来看吧！ ?? tfV4QR6Wqo0X0LZ ?? http://xhslink.com/a/tyU2rTEncSiW，复制本条信息，打开【小红书】App查看精彩内容！",
-				// url: 'https://v.kuaishou.com/X8x7xF 出租半边床位"你附近100米的人 "你的女神已上线 "夸她就行 该作品在快手被播放过2.2万次，点击链接，打开【快手】直接观看！',
-				// url: '58 365去水印助手发布了一篇小红书笔记，快来看吧！ ?? aCBhfKrXNijYQME ?? https://xhslink.com/a/2bcRfA1WOyjW，复制本条信息，打开【小红书】App查看精彩内容！',
+				imgList: [{
+					image: 'https://mp-13dd589c-4432-4fb1-866e-9e4ead5819bb.cdn.bspapp.com/carousel/969.jpg',
+					id: 1
+				}, {
+					image: 'https://mp-13dd589c-4432-4fb1-866e-9e4ead5819bb.cdn.bspapp.com/carousel/99.jpg',
+					id: 2
+				}, {
+					image: 'https://mp-13dd589c-4432-4fb1-866e-9e4ead5819bb.cdn.bspapp.com/carousel/kEm74VfIMVSV75mxEd4G73Xvz4SIvg.jpg',
+					id: 3
+				}],
 				url: '',
 				todayCount: 0,
 				allCount: 0,
