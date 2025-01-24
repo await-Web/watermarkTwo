@@ -5,6 +5,19 @@
 			<!-- 	<view class=" u-m-t-20 u-m-b-20">
 				<ad-custom unit-id="adunit-25663b600ce971b2" ad-intervals="30"></ad-custom>
 			</view> -->
+			<view class="activity u-m-t-20 u-p-l-20 u-p-r-20" @click="jumWebview('1')">
+				<view class="life_item">
+					<view class="banner_box">
+						<image mode="scaleToFill"
+							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/cover_783065.png"
+							class="banner"></image>
+					</view>
+					<view class="name">春节假期想去哪就去哪</view>
+					<view class="u-flex u-p-b-10" style="justify-content: center;">
+						<u-button type="primary" size="medium" @click="jumWebview('1')">立即领取</u-button>
+					</view>
+				</view>
+			</view>
 			<view class="u-flex-col content  u-p-l-20 u-p-r-20">
 				<!-- 描述 -->
 				<view class="u-m-t-20 url-input u-m-b-20">
@@ -64,6 +77,7 @@
 					<u-button type="success" size="medium" @click="copy(detialData.videoSrc)">复制无水印视频链接</u-button>
 					<u-button type="success" size="medium" @click="copy(detialData.imageSrc)">复制无水印封面链接</u-button>
 				</view>
+
 			</view>
 		</view>
 		<kxCustomer></kxCustomer>
@@ -105,6 +119,28 @@
 			}
 		},
 		methods: {
+
+			jumWebview(type) {
+				const navigateToMiniProgram = (appId, path, envVersion = 'release') => {
+					uni.navigateToMiniProgram({
+						appId,
+						path,
+						envVersion,
+						success(res) {},
+						fail(err) {}
+					});
+				};
+				switch (type) {
+					case '1':
+						navigateToMiniProgram('wxaf35009675aa0b2a',
+							'/pages/index/index?scene=YoZ591b&source_id=26b88e0a7f02ca189c71&ref_from=dunion&dunion_callback=%7B%22partner_mark%22%3A%2226b88e0a7f02ca189c71%22%7D'
+						);
+						break;
+					default:
+						break;
+				}
+			},
+
 			//处理图片数据
 			handleImageAtlas() {
 				if (this.imageAtlas?.length) {
@@ -347,6 +383,42 @@
 	.page_v {
 		padding-bottom: 40rpx;
 
+		.activity {
+			.life_item {
+				width: 100%;
+				overflow: hidden;
+
+				border-radius: .5rem;
+				box-shadow: 0 3px 10px hsla(0, 0%, 85.1%, .5);
+				background-color: #fff;
+
+				.banner_box {
+					width: 100%;
+					height: 100%;
+					position: relative;
+
+					.banner {
+						width: 100%;
+						height: 10rem;
+					}
+				}
+
+				.name {
+					width: 100%;
+					height: 2.5rem;
+					margin: 20rpx 0;
+					line-height: 2.5rem;
+					padding: 0 0.2rem;
+					font-size: 1rem;
+					font-weight: 700;
+					word-break: keep-all;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+
 		.title-box {
 			display: flex;
 			align-items: center;
@@ -407,6 +479,8 @@
 					margin-bottom: 20rpx;
 				}
 			}
+
+
 
 			.url-input {
 				width: 100%;

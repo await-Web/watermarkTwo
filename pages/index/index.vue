@@ -2,10 +2,23 @@
 	<view class="tool-v">
 		<view class="statement u-text-center u-m-t-20">所有视频,图片归平台及作者所有，本应用不储存任何内容</view>
 		<u-toast ref="uToast" />
-		<view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
+		<!-- <view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
 			<u-swiper :list="imgList"></u-swiper>
-		</view>
+		</view> -->
 		<view class="tool-content">
+			<view class="activity u-m-t-20" @click="jumWebview('7')">
+				<view class="life_item">
+					<view class="banner_box">
+						<image mode="scaleToFill"
+							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/cover_452901.jpg"
+							class="banner"></image>
+					</view>
+					<view class="name">【门票立减券】春节假期门票立减券</view>
+					<view class="u-flex u-p-b-10" style="justify-content: center;">
+						<u-button type="primary" size="medium" @click="jumWebview('7')">立即领取</u-button>
+					</view>
+				</view>
+			</view>
 			<view class="u-m-t-20 url-input">
 				<view class="u-flex u-m-b-10">
 					<kxSwitch @change="switchChange"></kxSwitch>
@@ -16,6 +29,32 @@
 				<view class="u-flex btn-box">
 					<u-button v-if="isBach" size="mini" type="primary" @click="processUrl">粘贴并解析</u-button>
 					<u-button size="mini" type="primary" @click="processUrl" v-else>粘贴并解析</u-button>
+				</view>
+			</view>
+			<view class="activity u-m-t-20" @click="jumWebview('9')">
+				<view class="life_item">
+					<view class="banner_box">
+						<image mode="scaleToFill"
+							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/cover_273115.jpg"
+							class="banner"></image>
+					</view>
+					<view class="name">春节天天喝酒 代驾天天优惠</view>
+					<view class="u-flex u-p-b-10" style="justify-content: center;">
+						<u-button type="primary" size="medium" @click="jumWebview('9')">立即领取</u-button>
+					</view>
+				</view>
+			</view>
+			<view class="activity u-m-t-20" @click="jumWebview('8')">
+				<view class="life_item">
+					<view class="banner_box">
+						<image mode="scaleToFill"
+							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/750 340.png"
+							class="banner"></image>
+					</view>
+					<view class="name">滴滴春节出行大礼包</view>
+					<view class="u-flex u-p-b-10" style="justify-content: center;">
+						<u-button type="primary" size="medium" @click="jumWebview('8')">立即领取</u-button>
+					</view>
 				</view>
 			</view>
 			<video style="width: 100%;" class="u-m-t-20"
@@ -308,9 +347,21 @@
 							url: '/pages/my/dataLog/index'
 						});
 						break;
-						// case '7':
-						// 	navigateToMiniProgram('wxfd2e340553ce980d', '/pages/home/index');
-						// 	break;
+					case '7':
+						navigateToMiniProgram('wxde8ac0a21135c07d',
+							'/index/pages/h5/h5?weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3D-jozSr9zj3Yl'
+						);
+						break;
+					case '8':
+						navigateToMiniProgram('wxaf35009675aa0b2a',
+							'/webx/entry/block-prevention?scene=WQxGmKK&source_id=26b88e0a7f02ca189c71&ref_from=dunion&dunion_callback=%7B%22partner_mark%22%3A%2226b88e0a7f02ca189c71%22%7D'
+						);
+						break;
+					case '9':
+						navigateToMiniProgram('wxaf35009675aa0b2a',
+							'/pages/index/index?scene=WwKxqxb&source_id=26b88e0a7f02ca189c71&ref_from=dunion&dunion_callback=%7B%22partner_mark%22%3A%2226b88e0a7f02ca189c71%22%7D'
+						);
+						break;
 					default:
 
 						break;
@@ -371,6 +422,42 @@
 
 		.tool-content {
 			padding-bottom: 20rpx;
+
+			.activity {
+				.life_item {
+					width: 100%;
+					overflow: hidden;
+
+					border-radius: .5rem;
+					box-shadow: 0 3px 10px hsla(0, 0%, 85.1%, .5);
+					background-color: #fff;
+
+					.banner_box {
+						width: 100%;
+						height: 100%;
+						position: relative;
+
+						.banner {
+							width: 100%;
+							height: 10rem;
+						}
+					}
+
+					.name {
+						width: 100%;
+						height: 2.5rem;
+						margin: 20rpx 0;
+						line-height: 2.5rem;
+						padding: 0 0.6rem;
+						font-size: 1rem;
+						font-weight: 700;
+						word-break: keep-all;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
 
 			.url-input {
 				width: 100%;
