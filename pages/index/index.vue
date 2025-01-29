@@ -2,11 +2,11 @@
 	<view class="tool-v">
 		<view class="statement u-text-center u-m-t-20">所有视频,图片归平台及作者所有，本应用不储存任何内容</view>
 		<u-toast ref="uToast" />
-		<!-- <view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
+		<view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
 			<u-swiper :list="imgList"></u-swiper>
-		</view> -->
+		</view>
 		<view class="tool-content">
-			<view class="activity u-m-t-20" @click="jumWebview('7')">
+			<!-- <view class="activity u-m-t-20" @click="jumWebview('7')">
 				<view class="life_item">
 					<view class="banner_box">
 						<image mode="scaleToFill"
@@ -18,7 +18,7 @@
 						<u-button type="primary" size="medium" @click="jumWebview('7')">立即领取</u-button>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="u-m-t-20 url-input">
 				<view class="u-flex u-m-b-10">
 					<kxSwitch @change="switchChange"></kxSwitch>
@@ -26,13 +26,15 @@
 				</view>
 				<u-input v-model="url" type="textarea" :border="true" :clearable="true" placeholder="此处粘贴分享链接"
 					border-color="#fcc31f" />
+
 				<view class="u-flex btn-box">
+					<u-button size="mini" type="primary" @click="url = ''">清空</u-button>
 					<u-button v-if="isBach" size="mini" type="primary" @click="processUrl">粘贴并解析</u-button>
 					<u-button size="mini" type="primary" @click="processUrl" v-else>粘贴并解析</u-button>
 				</view>
 			</view>
 			<view class="activity u-m-t-20" @click="jumWebview('9')">
-				<view class="life_item">
+				<!-- <view class="life_item">
 					<view class="banner_box">
 						<image mode="scaleToFill"
 							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/cover_273115.jpg"
@@ -42,10 +44,10 @@
 					<view class="u-flex u-p-b-10" style="justify-content: center;">
 						<u-button type="primary" size="medium" @click="jumWebview('9')">立即领取</u-button>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view class="activity u-m-t-20" @click="jumWebview('8')">
-				<view class="life_item">
+				<!-- <view class="life_item">
 					<view class="banner_box">
 						<image mode="scaleToFill"
 							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/750 340.png"
@@ -55,7 +57,7 @@
 					<view class="u-flex u-p-b-10" style="justify-content: center;">
 						<u-button type="primary" size="medium" @click="jumWebview('8')">立即领取</u-button>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<video style="width: 100%;" class="u-m-t-20"
 				src="https://mp-89c324e5-79a8-4fa7-ab60-b83b46b5dd6b.cdn.bspapp.com/tutorial/94069d034ceff71eefa709524a998643.mp4"
@@ -157,8 +159,27 @@
 			this.getVoucher()
 			// this.getUserList()
 			// this.upDateUserInfo()
+			// this.getCozeApi()
 		},
 		methods: {
+			getCozeApi() {
+				let data = {
+					parameters: {
+						content: '早上好',
+						lang: '日语',
+					},
+					workflow_id: '7464638180601364520'
+				}
+				const authorization = 'Bearer pat_AGEQtTeloxo3wtXiuO7gkLDAWluy7IMId6x9jrg8ruIr3SnaMhZIQigOiaO3SEqg'
+				console.log(874);
+				getCoze(data, authorization).then(res => {
+					const data = res.data
+
+					console.log(data, 398)
+				}).catch(err => {
+					console.log(9966, err);
+				})
+			},
 			//打开使用教程
 			openTutorial(e) {
 				this.tutorial = e
@@ -340,7 +361,8 @@
 					case '5':
 						this.jumpApplet();
 						navigateToMiniProgram('wxda2c3eef7d7e3413',
-							'/pages/home/index?id=1817925578915618817&memberId=1825489540767150081');
+							'/pages/home/index?id=1817925578915618817&memberId=1825489540767150081'
+						);
 						break;
 					case '6':
 						uni.navigateTo({
@@ -467,7 +489,7 @@
 				box-shadow: 1rpx 1rpx 2rpx 1rpx rgba(0, 0, 0, 0.1);
 
 				.btn-box {
-					justify-content: flex-end;
+					justify-content: space-between;
 					margin-top: 20rpx;
 				}
 			}
