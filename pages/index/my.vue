@@ -38,6 +38,15 @@
 					</u-cell-item>
 				</u-cell-group>
 			</view>
+			<view class="my-group-box-inner" v-if="tools.isAdminRole()">
+				<u-cell-group :border="false" class="cell-group">
+					<u-cell-item title="添加推广" @click="openPage('/pages/my/adForm/form')" :title-style="titleStyle">
+						<template #icon>
+							<text class="icon-kx icon-kx-jilu u-m-r-16 u-font-32" />
+						</template>
+					</u-cell-item>
+				</u-cell-group>
+			</view>
 		</view>
 		<!-- 个人中心 -->
 		<!-- <view class="wx-ad">

@@ -26,9 +26,12 @@
 				</view>
 				<u-input v-model="url" type="textarea" :border="true" :clearable="true" placeholder="此处粘贴分享链接"
 					border-color="#fcc31f" />
-
 				<view class="u-flex btn-box">
 					<u-button size="mini" type="primary" @click="url = ''">清空</u-button>
+					<u-button size="mini" type="primary" open-type="share">
+						分享
+						<text class="u-m-l-10 item-icon icon-kx icon-kx-wechat-fill"></text>
+					</u-button>
 					<u-button v-if="isBach" size="mini" type="primary" @click="processUrl">粘贴并解析</u-button>
 					<u-button size="mini" type="primary" @click="processUrl" v-else>粘贴并解析</u-button>
 				</view>
@@ -62,35 +65,41 @@
 			<video style="width: 100%;" class="u-m-t-20"
 				src="https://mp-89c324e5-79a8-4fa7-ab60-b83b46b5dd6b.cdn.bspapp.com/tutorial/94069d034ceff71eefa709524a998643.mp4"
 				v-show="tutorial"></video>
-			<view class="apply-list">
-				<view class="part">
-					<view class="caption u-line-1">
-						更多功能
+			<view class="card u-flex">
+				<view class="card-item u-p-20 u-flex" @click="jumWebview('ad')">
+					<view class="card-item-r">
+						<view class="title">大红包</view>
+						<view class="content">美团，饿了么，电影票，流量卡，打车优惠券等</view>
 					</view>
-					<view class="item-box">
-						<view class="u-flex u-flex-wrap">
-							<view class="item u-flex-col u-col-center" @click="jumWebview('5')">
-								<text class="u-font-40 item-icon icon-kx icon-kx-duanju"
-									:style="{ background:  '#f2b0ff' }" />
-								<text class="u-font-24 u-line-1 item-text">热播短剧</text>
-							</view>
-							<view class="item u-flex-col u-col-center" @click="jumWebview('6')">
-								<text class="u-font-40 item-icon icon-kx icon-kx-jilu"
-									:style="{ background:  '#ff0000' }" />
-								<text class="u-font-24 u-line-1 item-text">历史记录</text>
-							</view>
-							<view class="item u-flex-col u-col-center" @click="jumWebview('3')">
-								<text class="u-font-40 item-icon icon-kx icon-kx-MD51"
-									:style="{ background:  '#008cff' }" />
-								<text class="u-font-24 u-line-1 item-text">修改MD5</text>
-							</view>
-							<view class="item u-flex-col u-col-center">
-								<button class="shareBtn" open-type="share">
-									<text class="item-icon icon-kx icon-kx-wechat-fill"></text>
-								</button>
-								<text class="u-font-24 u-line-1 item-text">分享</text>
-							</view>
-						</view>
+					<view class="card-item-l">
+						<text class="icon-kx icon-kx-hongbao1 icon-sty" style="color: #e60012;"></text>
+					</view>
+				</view>
+				<view class="card-item u-p-20 u-flex" @click="jumWebview('translate')">
+					<view class="card-item-r">
+						<view class="title">AI翻译</view>
+						<view class="content">将输入的文本翻译成指定语言</view>
+					</view>
+					<view class="card-item-l">
+						<text class="icon-kx icon-kx-fanyi-full icon-sty" style="color: #4e5a5a;"></text>
+					</view>
+				</view>
+				<view class="card-item u-p-20 u-flex" @click="jumWebview('record')">
+					<view class="card-item-r">
+						<view class="title">解析记录</view>
+						<view class="content">查看解析记录</view>
+					</view>
+					<view class="card-item-l">
+						<text class="icon-kx icon-kx-jilu icon-sty" style="color: #73aa2b;"></text>
+					</view>
+				</view>
+				<view class="card-item u-p-20 u-flex" @click="jumWebview('md5')">
+					<view class="card-item-r">
+						<view class="title">修改MD5</view>
+						<view class="content">提高视频原创度</view>
+					</view>
+					<view class="card-item-l">
+						<text class="icon-kx icon-kx-MD51 icon-sty" style="color: #5a491f;"></text>
 					</view>
 				</view>
 			</view>
@@ -113,9 +122,20 @@
 		authorWorkWatermark
 	} from "@/api/external.js";
 	const subscribemsg = uniCloud.importObject('subscribeMessage')
+	import comMixin from './mixin'
 	export default {
+		mixins: [comMixin],
 		data() {
 			return {
+				customStyle: {
+					'background': 'linear-gradient(315deg, #87ffc7 0, #ec87f9 100% )'
+				},
+				customStyle2: {
+					'background': 'linear-gradient(315deg, #87ffc7 0, #ec87f9 100% )'
+				},
+				customStyle3: {
+					'background': 'linear-gradient(315deg, #ffe297 0, #2b99f9 100% )'
+				},
 				imgList: [{
 					image: 'https://mp-13dd589c-4432-4fb1-866e-9e4ead5819bb.cdn.bspapp.com/carousel/969.jpg',
 					id: 1
@@ -328,67 +348,7 @@
 					watermarkObj: this.detialData
 				})
 			},
-			/* 跳转相关 */
-			jumWebview(type) {
-				const navigateToMiniProgram = (appId, path, envVersion = 'release') => {
-					uni.navigateToMiniProgram({
-						appId,
-						path,
-						envVersion,
-						success(res) {
-							// 可以在这里添加统一的成功处理逻辑  
-							console.log('小程序打开成功', res);
-						},
-						fail(err) {
-							// 可以在这里添加统一的失败处理逻辑  
-							console.error('小程序打开失败', err);
-						}
-					});
-				};
 
-				switch (type) {
-					case '1':
-						// navigateToMiniProgram('wx307a4b6152c1100f', '/pages/index/index');
-						break;
-					case '2':
-						// navigateToMiniProgram('wx307a4b6152c1100f', '/pages/index/wallpaper');
-						break;
-					case '3':
-						uni.navigateTo({
-							url: '/pages/analysis/mdFive/index'
-						});
-						break;
-					case '5':
-						this.jumpApplet();
-						navigateToMiniProgram('wxda2c3eef7d7e3413',
-							'/pages/home/index?id=1817925578915618817&memberId=1825489540767150081'
-						);
-						break;
-					case '6':
-						uni.navigateTo({
-							url: '/pages/my/dataLog/index'
-						});
-						break;
-					case '7':
-						navigateToMiniProgram('wxde8ac0a21135c07d',
-							'/index/pages/h5/h5?weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3D-jozSr9zj3Yl'
-						);
-						break;
-					case '8':
-						navigateToMiniProgram('wxaf35009675aa0b2a',
-							'/webx/entry/block-prevention?scene=WQxGmKK&source_id=26b88e0a7f02ca189c71&ref_from=dunion&dunion_callback=%7B%22partner_mark%22%3A%2226b88e0a7f02ca189c71%22%7D'
-						);
-						break;
-					case '9':
-						navigateToMiniProgram('wxaf35009675aa0b2a',
-							'/pages/index/index?scene=WwKxqxb&source_id=26b88e0a7f02ca189c71&ref_from=dunion&dunion_callback=%7B%22partner_mark%22%3A%2226b88e0a7f02ca189c71%22%7D'
-						);
-						break;
-					default:
-
-						break;
-				}
-			},
 			//跳转到短剧小程序
 			async jumpApplet() {
 				await setJumpAppletTable.add({
@@ -491,6 +451,8 @@
 				.btn-box {
 					justify-content: space-between;
 					margin-top: 20rpx;
+
+
 				}
 			}
 		}

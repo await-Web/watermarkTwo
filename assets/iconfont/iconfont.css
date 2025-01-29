@@ -1,8 +1,8 @@
 @font-face {
 	font-family: 'icon-kx';
-	src: url('https://at.alicdn.com/t/c/font_4662280_shbfx07v23.woff2?t=1738149413862') format('woff2'),
-		url('https://at.alicdn.com/t/c/font_4662280_shbfx07v23.woff?t=1738149413862') format('woff'),
-		url('https://at.alicdn.com/t/c/font_4662280_shbfx07v23.ttf?t=1738149413862') format('truetype');
+	src: url('https://at.alicdn.com/t/c/font_4662280_z78pwsrq249.woff2?t=1738155061245') format('woff2'),
+		url('https://at.alicdn.com/t/c/font_4662280_z78pwsrq249.woff?t=1738155061245') format('woff'),
+		url('https://at.alicdn.com/t/c/font_4662280_z78pwsrq249.ttf?t=1738155061245') format('truetype');
 }
 
 .icon-kx {
@@ -11,6 +11,26 @@
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-kx-hongbao:before {
+	content: "\e784";
+}
+
+.icon-kx-hongbao1:before {
+	content: "\e6da";
+}
+
+.icon-kx-hongbao2:before {
+	content: "\e62a";
+}
+
+.icon-kx-hongbao3:before {
+	content: "\e60f";
+}
+
+.icon-kx-hongbao4:before {
+	content: "\e610";
 }
 
 .icon-kx-fanyi:before {
