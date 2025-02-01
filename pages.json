@@ -27,9 +27,10 @@
 			}
 		},
 		{
-			"path": "pages/translate/index",
+			"path": "pages/index/translate",
 			"style": {
-				"navigationBarTitleText": "AI翻译"
+				"navigationBarTitleText": "AI翻译",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -123,7 +124,7 @@
 			},
 			{
 				"text": "翻译",
-				"pagePath": "pages/translate/index",
+				"pagePath": "pages/index/translate",
 				"iconPath": "static/image/translate.png",
 				"selectedIconPath": "static/image/translate-h.png"
 			},

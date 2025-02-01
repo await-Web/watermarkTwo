@@ -105,7 +105,9 @@
 			setClipboardData() {
 				uni.setClipboardData({
 					data: this.uid,
-					success: function() {}
+					success: () => {
+						this.$u.toast("复制成功")
+					}
 				});
 			},
 			init() {

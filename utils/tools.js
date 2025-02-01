@@ -1,3 +1,4 @@
+const SYSTEM_INFO = uni.getSystemInfoSync()
 const tools = {
 	getCurrentDayOfWeek() {
 		const daysOfWeek = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
@@ -149,6 +150,10 @@ const tools = {
 			})
 			interstitialAd.show().catch((err) => {})
 		}
+	},
+	//底部安全区
+	bottomSafe() {
+		return SYSTEM_INFO.safeAreaInsets.bottom
 	}
 }
 export default tools

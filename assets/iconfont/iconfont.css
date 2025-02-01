@@ -1,8 +1,8 @@
 @font-face {
 	font-family: 'icon-kx';
-	src: url('https://at.alicdn.com/t/c/font_4662280_z78pwsrq249.woff2?t=1738155061245') format('woff2'),
-		url('https://at.alicdn.com/t/c/font_4662280_z78pwsrq249.woff?t=1738155061245') format('woff'),
-		url('https://at.alicdn.com/t/c/font_4662280_z78pwsrq249.ttf?t=1738155061245') format('truetype');
+	src: url('https://at.alicdn.com/t/c/font_4662280_1pf3p29buys.woff2?t=1738422857168') format('woff2'),
+		url('https://at.alicdn.com/t/c/font_4662280_1pf3p29buys.woff?t=1738422857168') format('woff'),
+		url('https://at.alicdn.com/t/c/font_4662280_1pf3p29buys.ttf?t=1738422857168') format('truetype');
 }
 
 .icon-kx {
@@ -11,6 +11,102 @@
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-kx-04zhuanhuan:before {
+	content: "\e626";
+}
+
+.icon-kx-zhuanhuan:before {
+	content: "\e6a0";
+}
+
+.icon-kx-zhuanhuan1:before {
+	content: "\e641";
+}
+
+.icon-kx-zhuanhuan2:before {
+	content: "\e664";
+}
+
+.icon-kx-jiazai:before {
+	content: "\e684";
+}
+
+.icon-kx-jiazai1:before {
+	content: "\e7ba";
+}
+
+.icon-kx-zhuanhuan3:before {
+	content: "\e61b";
+}
+
+.icon-kx-zhuanhuan-2:before {
+	content: "\e699";
+}
+
+.icon-kx-zhuanhuan4:before {
+	content: "\e69a";
+}
+
+.icon-kx-zhuanhuan5:before {
+	content: "\e62f";
+}
+
+.icon-kx-queding:before {
+	content: "\e612";
+}
+
+.icon-kx-fuzhi:before {
+	content: "\e656";
+}
+
+.icon-kx-delete:before {
+	content: "\e630";
+}
+
+.icon-kx-15qingkong-1:before {
+	content: "\e680";
+}
+
+.icon-kx-fuzhi1:before {
+	content: "\ec7a";
+}
+
+.icon-kx-qingkong:before {
+	content: "\e946";
+}
+
+.icon-kx-fuzhi2:before {
+	content: "\e67e";
+}
+
+.icon-kx-niantie:before {
+	content: "\e640";
+}
+
+.icon-kx-niantie1:before {
+	content: "\e64d";
+}
+
+.icon-kx-niantie2:before {
+	content: "\e628";
+}
+
+.icon-kx-niantie3:before {
+	content: "\e611";
+}
+
+.icon-kx-qingkong1:before {
+	content: "\e62c";
+}
+
+.icon-kx-fuzhi3:before {
+	content: "\e645";
+}
+
+.icon-kx-qingkong2:before {
+	content: "\e781";
 }
 
 .icon-kx-hongbao:before {

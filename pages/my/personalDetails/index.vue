@@ -19,7 +19,7 @@
 					<ad unit-id="adunit-4081ba7987a6509b" ad-type="video" ad-theme="white"></ad>
 				</view> -->
 			</view>
-			<view class="" style="position: fixed;bottom: 0;width: 100%;">
+			<view class="" style="position: fixed;width: 100%;" :style="{'bottom':safeBottom+'px'}">
 				<button type="primary" @click="submit()" :loading="loading">提交</button>
 			</view>
 		</uni-section>
@@ -34,6 +34,7 @@
 	export default {
 		data() {
 			return {
+				safeBottom: 0,
 				formData: {
 					username: '',
 					age: "28",
@@ -108,6 +109,10 @@
 			userInfo() {
 				return userStore.userInfo
 			}
+		},
+		mounted() {
+			const screenInfo = uni.getSystemInfoSync();
+			this.safeBottom = screenInfo.safeAreaInsets.bottom
 		},
 		methods: {
 			/* 初始化 */
