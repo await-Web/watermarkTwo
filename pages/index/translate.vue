@@ -1,8 +1,12 @@
 <template>
 	<view class="translate-v">
 		<kxDiyTitleBar></kxDiyTitleBar>
-		<view class="title">
-			翻译
+		<view class="title u-flex">
+			<view>翻译成</view>
+			<view class="u-m-l-12" style="flex: 0.4;">
+				<uni-data-select v-model="lang" :localdata="range" @change="change" placeholder="目标语言"
+					:clear="false"></uni-data-select>
+			</view>
 		</view>
 		<view class="u-flex-col u-m-t-20 translate-box">
 			<view class="translate-top u-flex-col translate">
@@ -12,24 +16,24 @@
 				</view>
 				<view class="u-flex u-p-l-24 u-p-r-24 btn">
 					<view class="u-flex">
-						<view class="icon-kx icon-kx-delete icon-sty u-m-r-5" @click="value = ''"></view>
+						<view class="icon-kx icon-kx-delete icon-sty u-m-r-5" @click="clear"></view>
 						<view class="icon-kx icon-kx-niantie icon-sty u-m-l-5" @click="pasteContent"></view>
 						<view class="icon-kx icon-kx-fuzhi2 icon-sty u-m-l-5" @click="copyContent"></view>
 					</view>
 					<view>
-						<u-button type="primary" size="mini">翻译</u-button>
+						<u-button type="primary" size="mini" @click="getCozeApi">翻译</u-button>
 					</view>
 				</view>
 			</view>
 			<view class="icon-kx icon-kx-zhuanhuan3 icon-sty2"></view>
 			<view class="translate-bottom translate">
 				<view class="input-box">
-					<u-input v-model="value" type="textarea" :auto-height="autoHeight" height="400" maxlength='999'
-						placeholder="目标语言" disabled />
+					<u-input v-model="translationRes" type="textarea" :auto-height="autoHeight" height="400"
+						maxlength='999' :placeholder="translationResPlaceholder" disabled />
 				</view>
 				<view class="u-flex u-p-l-24 u-p-r-24 btn">
 					<view class="u-flex">
-						<view class="icon-kx icon-kx-fuzhi2 icon-sty u-m-l-5" @click="copyContent"></view>
+						<view class="icon-kx icon-kx-fuzhi2 icon-sty u-m-l-5" @click="copyContent('res')"></view>
 					</view>
 				</view>
 			</view>
@@ -38,24 +42,79 @@
 </template>
 
 <script>
+	import {
+		getCozeTranslate
+	} from "@/api/coze.js";
 	export default {
 		data() {
 			return {
+				range: [{
+						value: "英语",
+						text: "英语"
+					},
+					{
+						value: "印尼语",
+						text: "印尼语"
+					},
+					{
+						value: "泰语",
+						text: "泰语"
+					},
+					{
+						value: "日语",
+						text: "日语"
+					},
+					{
+						value: "中文",
+						text: "中文"
+					},
+					{
+						value: "法语",
+						text: "法语"
+					},
+					{
+						value: "菲律宾语",
+						text: "菲律宾语"
+					},
+					{
+						value: "葡萄牙语",
+						text: "葡萄牙语"
+					},
+					{
+						value: "德语",
+						text: "德语"
+					}
+				],
 				value: '',
 				type: 'textarea',
 				autoHeight: true,
+				translationRes: "",
+				translationcopy: '',
+				lang: '英语'
 			}
 		},
-
-		onLoad() {
-
+		computed: {
+			translationResPlaceholder() {
+				return this.lang ? `目标语言-${this.lang}` : '目标语言'
+			}
+		},
+		onShow() {
+			this.clear()
 		},
 		methods: {
+			clear() {
+				this.translationRes = ""
+				this.value = ""
+			},
+			change(e) {
+				this.clear()
+				if (e) this.lang = e
+			},
 			/* 复制 */
-			copyContent() {
+			copyContent(type) {
 				if (!this.value) return this.$u.toast("复制失败！输入框为空")
 				uni.setClipboardData({
-					data: this.value,
+					data: type === 'res' ? this.translationRes : this.value,
 					success: () => {
 						this.$u.toast("复制成功")
 					}
@@ -71,7 +130,20 @@
 						this.$u.toast("无法从剪贴板获取到内容");
 					}
 				});
-			}
+			},
+			getCozeApi() {
+				if (!this.value) return this.$u.toast("好的，请提供一下需要翻译成日语的内容吧。")
+				let data = {
+					parameters: {
+						content: this.value,
+						lang: this.lang,
+					}
+				}
+				getCozeTranslate(data).then(res => {
+					const data = res?.data && JSON.parse(res.data)
+					this.translationRes = data.data
+				}).catch(err => {})
+			},
 		}
 	}
 </script>

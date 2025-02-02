@@ -66,7 +66,7 @@ export default {
 					break;
 				case 'translate':
 					uni.switchTab({
-						url: "/pages/translate/index"
+						url: "/pages/index/translate"
 					})
 					break;
 				case 'ad':

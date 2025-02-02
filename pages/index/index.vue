@@ -179,27 +179,8 @@
 			this.getVoucher()
 			// this.getUserList()
 			// this.upDateUserInfo()
-			// this.getCozeApi()
 		},
 		methods: {
-			getCozeApi() {
-				let data = {
-					parameters: {
-						content: '早上好',
-						lang: '日语',
-					},
-					workflow_id: '7464638180601364520'
-				}
-				const authorization = 'Bearer pat_AGEQtTeloxo3wtXiuO7gkLDAWluy7IMId6x9jrg8ruIr3SnaMhZIQigOiaO3SEqg'
-				console.log(874);
-				getCoze(data, authorization).then(res => {
-					const data = res.data
-
-					console.log(data, 398)
-				}).catch(err => {
-					console.log(9966, err);
-				})
-			},
 			//打开使用教程
 			openTutorial(e) {
 				this.tutorial = e
