@@ -10,6 +10,18 @@
 	const uniIdCo = uniCloud.importObject('uni-id-co')
 	const userStore = useUserStore()
 	onLaunch(() => {
+		/* 分享 */
+		wx.onAppRoute((res) => {
+			let pages = getCurrentPages()
+			let view = pages[pages.length - 1]
+			if (view) {
+				wx.showShareMenu({
+					menus: ['shareAppMessage', 'shareTimeline'],
+					success(res) {},
+					fail(e) {}
+				})
+			}
+		})
 		const updateManager = wx.getUpdateManager()
 		updateManager.onCheckForUpdate(res => {
 			if (res.hasUpdate) {

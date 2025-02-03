@@ -13,59 +13,36 @@
 	.shadow{
 		box-shadow: 0 1rpx 4rpx -4rpx rgba(0, 0, 0, .16), 0 6rpx 12rpx rgba(0, 0, 0, .12), 0 4rpx 16rpx 4rpx rgba(0, 0, 0, .09);
 	}
-	.apply-list {
-		background-color: #fff;
-		margin-top: 20rpx;
-		border-radius: 10rpx;
-		 // box-shadow: 0 -2rpx 8rpx #e1e5ec;
-		 // box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
-		 box-shadow: 1rpx 1rpx 2rpx 1rpx rgba(0, 0, 0, 0.1);
-		.part{
-			background: #fff;
+	
+	.card{
+		justify-content: space-between;
+		flex-wrap: wrap;
+		.card-item{
+			width: 48%;
+			height: 200rpx;
+			background-color: #fff;
+			border-radius: 20rpx;
+			box-shadow: 1rpx 1rpx 2rpx 1rpx rgba(0, 0, 0, 0.1);
 			margin-bottom: 20rpx;
-			border-radius: 10rpx;
-			.caption {
-				padding:  20rpx 20rpx 0 20rpx;
-				font-size: 28rpx;
-				font-weight: bold;
+			
+			.card-item-r{
+				height: 100%;
+				.title{
+					height: 60rpx;
+					font-size: 34rpx;
+				}
+				.content{
+					color: #999999;
+					font-size: 24rpx;
+				}
 			}
-			.item-box{
-				max-height: 320rpx;
-				overflow-y: scroll;
-				padding-bottom: 20rpx;
-				.item {
-					padding-top: 0.8rem;
-					width: 20%;
-					box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
-					margin-bottom: 8rpx;
-					.shareBtn{
-						padding: 0 !important;
-						margin-bottom: 8rpx;
-						width: 80rpx;height: 80rpx;
-						background-color: #ffaa00;
-					}
-					.item-icon {
-						width: 80rpx;
-						height: 80rpx;
-						margin-bottom: 8rpx;
-						line-height: 80rpx;
-						text-align: center;
-						border-radius: 10rpx;
-						color: #fff;
-						font-size: 54rpx;
-				
-						&.more {
-							background: #ececec;
-							color: #666666;
-							font-size: 50rpx;
-						}
-					}
-				
-					.item-text {
-						width: 100%;
-						text-align: center;
-						padding: 0 16rpx;
-					}
+			.card-item-l{
+				height: 100%;
+				flex: 1;
+				text-align: end;
+				.icon-sty{
+					font-size: 80rpx;
+					 color: aqua;
 				}
 			}
 		}
@@ -76,7 +53,7 @@
 		border-radius: 50%;
 		background-color: rgba(184, 64, 172, 0.7);
 		position: fixed;
-		bottom: 80rpx;
+		bottom: 180rpx;
 		right: 18rpx;
 		display: flex;
 		align-items: center;

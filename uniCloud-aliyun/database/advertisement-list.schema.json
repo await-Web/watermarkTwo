@@ -1,0 +1,74 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"permission": {
+		"read": "auth.uid == doc.user_id",
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"user_id": {
+			"bsonType": "string",
+			"foreignKey": "uni-id-users._id",
+			"defaultValue": {
+				"$env": "uid"
+			}
+		},
+		"QRCodeSrc": {
+			"bsonType": "string",
+			"description": "推广二维码"
+		},
+		"appId": {
+			"bsonType": "string",
+			"description": "小程序id"
+		},
+		"brand": {
+			"bsonType": "string",
+			"description": "品牌"
+		},
+		"goodsDescription": {
+			"bsonType": "string",
+			"description": "描述"
+		},
+		"longLink": {
+			"bsonType": "string",
+			"description": "长链接"
+		},
+		"pagePath": {
+			"bsonType": "string",
+			"description": "小程序页面路径"
+		},
+		"promotionImg": {
+			"bsonType": "string",
+			"description": "推广封面"
+		},
+		"promotionImgUrl": {
+			"bsonType": "string",
+			"description": "推广封面url"
+		},
+		"psw": {
+			"bsonType": "string",
+			"description": "推广口令"
+		},
+		"shortLink": {
+			"bsonType": "string",
+			"description": "短链接"
+		},
+		"type": {
+			"bsonType": "string",
+			"description": "推广类型"
+		},
+		"date": {
+			"bsonType": "string",
+			"description": "签到的日期"
+		},
+		"dateTimestamp": {
+			"bsonType": "timestamp",
+			"description": "签到的日期"
+		}
+	}
+}
