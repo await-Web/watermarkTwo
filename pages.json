@@ -36,7 +36,7 @@
 		{
 			"path": "pages/coupon/index",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "本地生活"
 			}
 		}
 	],
@@ -109,14 +109,7 @@
 		"color": "#8a8a8a",
 		"selectedColor": "#74dbef",
 		"backgroundColor": "#ffffff",
-		"list": [
-			// 	{
-			// 	"text": "首页",
-			// 	"pagePath": "pages/index/index",
-			// 	"iconPath": "static/image/home.png",
-			// 	"selectedIconPath": "static/image/home-h.png"
-			// }, 
-			{
+		"list": [{
 				"text": "首页",
 				"pagePath": "pages/index/index",
 				"iconPath": "static/image/home.png",
