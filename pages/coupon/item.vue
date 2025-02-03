@@ -5,8 +5,11 @@
 				<view class="banner_box">
 					<image mode="scaleToFill" :src="item.promotionImg" class="banner"></image>
 				</view>
-				<!-- <view class="name" v-if="item.goodsDescription">{{item.goodsDescription}}</view> -->
-				<view class="u-flex u-p-b-10" style="justify-content: center;">
+				<view class="u-flex u-p-b-10" style="justify-content: space-evenly;">
+					<u-button size="mini" type="success" open-type="share">
+						分享
+						<text class="u-m-l-10 item-icon icon-kx icon-kx-wechat-fill"></text>
+					</u-button>
 					<u-button type="primary" size="medium" @click="jumWebview(index)">立即领取</u-button>
 				</view>
 			</view>
@@ -25,6 +28,12 @@
 		data() {
 			return {
 
+			}
+		},
+		onShareAppMessage(e) {
+			return {
+				title: '优惠券 天天有 天天领',
+				path: '/pages/coupon/index'
 			}
 		},
 		methods: {

@@ -21,7 +21,11 @@
 						<view class="icon-kx icon-kx-fuzhi2 icon-sty u-m-l-5" @click="copyContent"></view>
 					</view>
 					<view>
-						<u-button type="primary" size="mini" @click="getCozeApi">翻译</u-button>
+						<u-button size="mini" type="success" open-type="share">
+							分享
+							<text class="u-m-l-10 item-icon icon-kx icon-kx-wechat-fill"></text>
+						</u-button>
+						<u-button type="primary" size="mini" class="u-m-l-12" @click="getCozeApi">翻译</u-button>
 					</view>
 				</view>
 			</view>
@@ -100,6 +104,12 @@
 		},
 		onShow() {
 			this.clear()
+		},
+		onShareAppMessage(e) {
+			return {
+				title: '简单易操作的翻译工具',
+				path: '/pages/index/translate.vue'
+			}
 		},
 		methods: {
 			clear() {

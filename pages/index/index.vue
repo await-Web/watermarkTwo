@@ -135,42 +135,12 @@
 			}
 		},
 		onLoad() {
-			this.share()
 			this.getVoucher()
-			// this.getUserList()
-			// this.upDateUserInfo()
 		},
 		methods: {
 			//打开使用教程
 			openTutorial(e) {
 				this.tutorial = e
-			},
-			async upDateUserInfo() {
-				const dbCmd = db.command
-				let res = await usersTable.where({
-					watermark_count: dbCmd.eq(1),
-					cumulative: dbCmd.eq(1)
-				}).update({
-					watermark_count: 0,
-					cumulative: 0,
-				})
-			},
-			// getUserList() {
-			// 	uniCloud.callFunction({
-			// 		name: 'getUserList',
-			// 	}).then(res => {
-
-			// 	});
-			// },
-
-			share() {
-				//分享
-				// #ifdef MP-WEIXIN
-				wx.showShareMenu({
-					withShareTicket: false,
-					menus: ['shareAppMessage', 'shareTimeline']
-				})
-				// #endif
 			},
 			//获取接口调用凭据
 			getVoucher() {
