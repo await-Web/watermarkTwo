@@ -1,24 +1,11 @@
 <template>
 	<view class="page_v">
 		<view>
-			<!-- 解析完成页 -->
-			<!-- 	<view class=" u-m-t-20 u-m-b-20">
-				<ad-custom unit-id="adunit-25663b600ce971b2" ad-intervals="30"></ad-custom>
-			</view> -->
-			<view class="activity u-m-t-20 u-p-l-20 u-p-r-20" @click="jumWebview('1')">
-				<view class="life_item">
-					<view class="banner_box">
-						<image mode="scaleToFill"
-							src="https://mp-7c084917-6399-4468-8aac-cfaca7df5b39.cdn.bspapp.com/activity/cover_783065.png"
-							class="banner"></image>
-					</view>
-					<view class="name">春节假期想去哪就去哪</view>
-					<view class="u-flex u-p-b-10" style="justify-content: center;">
-						<u-button type="primary" size="medium" @click="jumWebview('1')">立即领取</u-button>
-					</view>
-				</view>
-			</view>
 			<view class="u-flex-col content  u-p-l-20 u-p-r-20">
+				<!-- 解析完成页 -->
+				<view class="u-m-t-20">
+					<ad-custom unit-id="adunit-b05cb67c43c204e1" ad-intervals="30"></ad-custom>
+				</view>
 				<!-- 描述 -->
 				<view class="u-m-t-20 url-input u-m-b-20">
 					<view class="u-flex u-m-b-10">
@@ -34,50 +21,52 @@
 					</view>
 				</view>
 				<!-- 图片 -->
-				<view class="u-m-t-20 u-flex top-btn" v-if="imageAtlas?.length">
-					<view>
-						<u-button size="mini" type="warning" @click="clearAll" class="u-m-r-10">{{`清空`}}</u-button>
-						<u-button size="mini" type="primary" v-if="multipleUrlList.length"
-							@click="batchDownload">{{`批量下载 (${multipleUrlList.length})`}}</u-button>
-						<u-button size="mini" type="primary" v-else @click="batchDownload">{{`批量下载`}}</u-button>
+				<view v-if="imageAtlas?.length">
+					<view class="u-m-t-20 u-flex top-btn">
+						<view>
+							<u-button size="mini" type="warning" @click="clearAll" class="u-m-r-10">{{`清空`}}</u-button>
+							<u-button size="mini" type="primary" v-if="multipleUrlList.length"
+								@click="batchDownload">{{`批量下载 (${multipleUrlList.length})`}}</u-button>
+							<u-button size="mini" type="primary" v-else @click="batchDownload">{{`批量下载`}}</u-button>
+						</view>
 					</view>
-				</view>
-				<view class="imgs-box u-flex" v-if="imageAtlas?.length">
-					<scroll-view scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-						@scroll="scroll">
-						<view class="u-flex scroll-box">
-							<view class="img-item-box" v-for="(item,index) in imageAtlas" :key="index">
-								<view class="img-item">
-									<view class="img-item-checkbox">
-										<u-checkbox @change="checkboxChange($event,item)" v-model="item.checked"
-											:name="index"></u-checkbox>
+					<view class="imgs-box u-flex">
+						<scroll-view scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
+							@scroll="scroll">
+							<view class="u-flex scroll-box">
+								<view class="img-item-box" v-for="(item,index) in imageAtlas" :key="index">
+									<view class="img-item">
+										<view class="img-item-checkbox">
+											<u-checkbox @change="checkboxChange($event,item)" v-model="item.checked"
+												:name="index"></u-checkbox>
+										</view>
+										<image :src="item.url" class="image-sty" @tap="previewImage(index)"></image>
+										<u-button v-if="!isMultiple" type="primary" size="mini"
+											@click="handleDownloads(index,'img')"
+											style="position: absolute;bottom: 8rpx;left: 8rpx;">下载</u-button>
 									</view>
-									<image :src="item.url" class="image-sty" @tap="previewImage(index)"></image>
-									<u-button v-if="!isMultiple" type="primary" size="mini"
-										@click="handleDownloads(index,'img')"
-										style="position: absolute;bottom: 8rpx;left: 8rpx;">下载</u-button>
+								</view>
+								<view class="glare-effect" @click="jump">
+									查看更多壁纸
 								</view>
 							</view>
-							<view class="glare-effect" @click="jump">
-								查看更多壁纸
-							</view>
-						</view>
-					</scroll-view>
+						</scroll-view>
+					</view>
 				</view>
 				<!-- 视频 -->
-				<view class="u-m-t-20 video-box" v-else>
-					<video id="myVideo" :src="detialData.videoSrc" controls></video>
+				<view v-if="detialData.videoSrc">
+					<view class="u-m-t-20 video-box">
+						<video id="myVideo" :src="detialData.videoSrc" controls></video>
+					</view>
+					<view class="u-flex btn-box">
+						<u-button type="primary" size="medium"
+							@click="handleDownloads(detialData.videoSrc,'video')">下载视频</u-button>
+						<u-button type="primary" size="medium"
+							@click="handleDownloads(detialData.imageSrc,'img')">下载封面</u-button>
+						<u-button type="success" size="medium" @click="copy(detialData.videoSrc)">复制无水印视频链接</u-button>
+						<u-button type="success" size="medium" @click="copy(detialData.imageSrc)">复制无水印封面链接</u-button>
+					</view>
 				</view>
-
-				<view class="u-flex btn-box" v-if="detialData.videoSrc && !detialData.isMP">
-					<u-button type="primary" size="medium"
-						@click="handleDownloads(detialData.videoSrc,'video')">下载视频</u-button>
-					<u-button type="primary" size="medium"
-						@click="handleDownloads(detialData.imageSrc,'img')">下载封面</u-button>
-					<u-button type="success" size="medium" @click="copy(detialData.videoSrc)">复制无水印视频链接</u-button>
-					<u-button type="success" size="medium" @click="copy(detialData.imageSrc)">复制无水印封面链接</u-button>
-				</view>
-
 			</view>
 		</view>
 		<kxCustomer></kxCustomer>
@@ -87,6 +76,7 @@
 	// #ifdef MP-WEIXIN
 	const fs = wx.getFileSystemManager()
 	// #endif
+	let videoAd = null
 	export default {
 		data() {
 			return {
@@ -98,17 +88,18 @@
 				imageAtlas: [],
 				multipleUrlList: [],
 				isBatch: false,
-				userIds: ['66f7b4f321821bdf93d152f9'],
+				userIds: ['6770c3177ad52d72fc8f5bba'],
 				title: ''
 			}
 		},
 		onLoad(e) {
 			/* 插屏广告 */
-			this.tools.wxAd('adunit-11214e4ee21b294f')
+			this.tools.wxAd('adunit-7aa1c46635182c64')
 			this.detialData = JSON.parse(decodeURIComponent(e.config));
 			this.title = this.detialData.title
 			this.imageAtlas = JSON.parse(JSON.stringify(this.detialData.imageAtlas))
 			this.handleImageAtlas()
+			this.showVideoAd();
 		},
 		computed: {
 			isAdvertisement() {
@@ -119,28 +110,6 @@
 			}
 		},
 		methods: {
-
-			jumWebview(type) {
-				const navigateToMiniProgram = (appId, path, envVersion = 'release') => {
-					uni.navigateToMiniProgram({
-						appId,
-						path,
-						envVersion,
-						success(res) {},
-						fail(err) {}
-					});
-				};
-				switch (type) {
-					case '1':
-						navigateToMiniProgram('wxaf35009675aa0b2a',
-							'/pages/index/index?scene=YoZ591b&source_id=26b88e0a7f02ca189c71&ref_from=dunion&dunion_callback=%7B%22partner_mark%22%3A%2226b88e0a7f02ca189c71%22%7D'
-						);
-						break;
-					default:
-						break;
-				}
-			},
-
 			//处理图片数据
 			handleImageAtlas() {
 				if (this.imageAtlas?.length) {
@@ -172,41 +141,30 @@
 			batchDownload() {
 				this.isBatch = true
 				this.batchCont = 0
-				this.handleDownloads(this.batchCont, 'img')
-				// this.$nextTick(() => {
-				// 	if (this.isAdvertisement) return this.handleDownloads(this.batchCont, 'img')
-				// 	this.showVideoAd()
-				// })
+				this.$nextTick(() => {
+					videoAd.show()
+				})
 			},
 			// 激励广告
 			showVideoAd() {
-				let videoAd = null
 				if (wx.createRewardedVideoAd) {
 					videoAd = wx.createRewardedVideoAd({
-						adUnitId: 'adunit-4c2607506a97bbdd'
+						adUnitId: 'adunit-a74b9ad6bf1907ac'
 					})
-					videoAd.onLoad(() => {})
-					videoAd.onError((err) => {})
+					videoAd.onError((err) => {
+						videoAd.load()
+					})
 					videoAd.onClose((res) => {
 						if (!res.isEnded) return uni.showModal({
 							title: "下载失败",
 							content: "还没看完呢！不能偷懒哦！",
 							confirmText: "重新开始",
 							success: (res) => {
-								if (res.confirm) this.showVideoAd()
+								if (res.confirm) videoAd.show()
 								if (res.cancel) this.resetValue()
 							}
 						})
 						this.handleDownloads(this.batchCont, 'img')
-					})
-				}
-				// 用户触发广告后，显示激励视频广告
-				if (videoAd) {
-					videoAd.show().catch(() => {
-						// 失败重试
-						videoAd.load().then(() => videoAd.show()).catch(err => {
-							console.error('激励视频 广告显示失败', err)
-						})
 					})
 				}
 			},

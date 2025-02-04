@@ -1,5 +1,5 @@
 <template>
-	<view class="bar-v">
+	<view class="bar-v" :style="{backgroundColor:bgc}">
 		<view class="statusBar" :style="{'height':statusBarHeight+'px'}"></view>
 		<view class="u-m-t-10 title"
 			:style="{height:wxTop+'px',lineHeight:wxTop+'px',paddingLeft:paddingL+'rpx',fontSize:fontS+'rpx'}">
@@ -24,6 +24,10 @@
 				type: [String, Number],
 				default: 40
 			},
+			bgc: {
+				type: String,
+				default: ''
+			}
 		},
 		data() {
 			return {
