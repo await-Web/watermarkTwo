@@ -87,15 +87,6 @@
 		mixins: [comMixin],
 		data() {
 			return {
-				customStyle: {
-					'background': 'linear-gradient(315deg, #87ffc7 0, #ec87f9 100% )'
-				},
-				customStyle2: {
-					'background': 'linear-gradient(315deg, #87ffc7 0, #ec87f9 100% )'
-				},
-				customStyle3: {
-					'background': 'linear-gradient(315deg, #ffe297 0, #2b99f9 100% )'
-				},
 				imgList: [{
 					image: 'https://mp-13dd589c-4432-4fb1-866e-9e4ead5819bb.cdn.bspapp.com/carousel/969.jpg',
 					id: 1
@@ -110,7 +101,6 @@
 				todayCount: 0,
 				allCount: 0,
 				detialData: {},
-				subscribeId: ['UU3SfNdbK8zevjVTLyDd43aqeGvdO4V6ND-VcoIRTYk'],
 				isBach: false,
 				isMP: false,
 				tutorial: false
@@ -135,7 +125,7 @@
 			}
 		},
 		onLoad() {
-			this.getVoucher()
+			if (uni.getStorageSync('uni_id_token')) this.getVoucher()
 		},
 		methods: {
 			//打开使用教程
