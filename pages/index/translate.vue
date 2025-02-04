@@ -100,13 +100,18 @@
 				autoHeight: true,
 				translationRes: "",
 				translationcopy: '',
-				lang: '英语'
+				lang: '英语',
+				userIds: ['66f7b4f321821bdf93d152f9'],
 			}
 		},
 		computed: {
 			translationResPlaceholder() {
 				return this.lang ? `目标语言-${this.lang}` : '目标语言'
-			}
+			},
+			/* 免广告 */
+			isAdvertisement() {
+				return this.tools.isCurrentUser(this.userIds) || this.tools.isAdminRole()
+			},
 		},
 		onShow() {
 			this.clear()
@@ -175,6 +180,7 @@
 			},
 			// 激励广告
 			openAd() {
+				if (this.isAdvertisement) return this.getCozeApi();
 				if (!this.value) return this.$u.toast("好的，请提供一下需要翻译成日语的内容吧。")
 				videoAd.show()
 			},
