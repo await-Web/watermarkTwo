@@ -41,7 +41,7 @@
 			</view>
 			<!-- md52 -->
 			<view class=" u-m-t-20 u-m-b-20">
-				<!-- <ad unit-id="adunit-e0d943434e0f3b71" ad-type="video" ad-theme="black"></ad> -->
+				<ad-custom unit-id="adunit-6b184a1fdf776cbd" ad-intervals="30"></ad-custom>
 			</view>
 		</view>
 		<kxCustomer></kxCustomer>
@@ -63,7 +63,7 @@
 		},
 		onShow() {
 			/* 插屏广告 */
-			this.tools.wxAd('adunit-11214e4ee21b294f')
+			this.tools.wxAd('adunit-7aa1c46635182c64')
 		},
 		methods: {
 			showTips(msg) {

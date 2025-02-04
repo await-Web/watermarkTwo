@@ -91,7 +91,7 @@
 			}
 		},
 		onShow() {
-			this.tools.wxAd('adunit-11214e4ee21b294f')
+			this.tools.wxAd('adunit-7aa1c46635182c64')
 		},
 		onLoad() {
 			this.init()

@@ -2,6 +2,10 @@
 	<view class="coupon-v" :style="{paddingBottom:safeAreaInsets+'px'}">
 		<u-tabs :list="list" :current="current" @change="tabChange"></u-tabs>
 		<view class="coupon-content">
+			<view class="u-m-t-20 u-m-b-20">
+				<!-- 本地生活 -->
+				<ad-custom unit-id="adunit-d78bf1b2b0340e67" ad-intervals="30"></ad-custom>
+			</view>
 			<adItem v-if="adData.length" :adData="adData" @jump="jump"></adItem>
 		</view>
 	</view>

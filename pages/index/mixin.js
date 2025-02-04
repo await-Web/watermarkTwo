@@ -4,9 +4,6 @@ export default {
 
 		}
 	},
-	onload() {
-		console.log(6665);
-	},
 	methods: {
 		/* 跳转相关 */
 		jumWebview(type) {

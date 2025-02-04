@@ -4,11 +4,14 @@
 		<u-toast ref="uToast" />
 		<view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
 			<u-swiper :list="imgList"></u-swiper>
+			<view class="u-m-b-20 u-m-t-20">
+				<ad-custom unit-id="adunit-8b48ae39936f9fa5" ad-intervals="30"></ad-custom>
+			</view>
 		</view>
 		<view class="tool-content">
 			<view class="u-m-t-20 url-input">
 				<view class="u-flex u-m-b-10">
-					<kxSwitch @change="switchChange"></kxSwitch>
+					<kxSwitch @change="switchChange" label="主页解析"></kxSwitch>
 					<kxSwitch @change="openTutorial" label="使用教程" class="u-m-l-10" labelColor="#07c160"></kxSwitch>
 				</view>
 				<u-input v-model="url" type="textarea" :border="true" :clearable="true" placeholder="此处粘贴分享链接"
@@ -83,19 +86,11 @@
 	} from "@/api/external.js";
 	const subscribemsg = uniCloud.importObject('subscribeMessage')
 	import comMixin from './mixin'
+	let videoAd = null
 	export default {
 		mixins: [comMixin],
 		data() {
 			return {
-				customStyle: {
-					'background': 'linear-gradient(315deg, #87ffc7 0, #ec87f9 100% )'
-				},
-				customStyle2: {
-					'background': 'linear-gradient(315deg, #87ffc7 0, #ec87f9 100% )'
-				},
-				customStyle3: {
-					'background': 'linear-gradient(315deg, #ffe297 0, #2b99f9 100% )'
-				},
 				imgList: [{
 					image: 'https://mp-13dd589c-4432-4fb1-866e-9e4ead5819bb.cdn.bspapp.com/carousel/969.jpg',
 					id: 1
@@ -110,15 +105,13 @@
 				todayCount: 0,
 				allCount: 0,
 				detialData: {},
-				subscribeId: ['UU3SfNdbK8zevjVTLyDd43aqeGvdO4V6ND-VcoIRTYk'],
 				isBach: false,
-				isMP: false,
 				tutorial: false
 			}
 		},
 		onShareAppMessage() {
 			return {
-				title: '免费壁纸,自由获取',
+				title: '不限次数,免费去水印',
 				path: '/pages/index/index'
 			}
 		},
@@ -135,7 +128,8 @@
 			}
 		},
 		onLoad() {
-			this.getVoucher()
+			if (uni.getStorageSync('uni_id_token')) this.getVoucher()
+			this.showVideoAd();
 		},
 		methods: {
 			//打开使用教程
@@ -165,13 +159,6 @@
 			//批量解析开关
 			switchChange(e) {
 				this.url = '';
-				if (e) {
-					this.$refs.uToast.show({
-						title: '主页解析支持抖音,快手,小红书',
-						type: 'warning',
-						duration: 2500
-					})
-				}
 				this.isBach = e
 			},
 			//读取剪切板
@@ -182,6 +169,7 @@
 					this.handleWatermark();
 				}
 			},
+			/* 粘贴 */
 			tryGetClipboardUrl() {
 				uni.getClipboardData({
 					success: (res) => {
@@ -200,25 +188,45 @@
 			// 提取的公共方法
 			handleWatermark() {
 				if (this.isBach) {
-					this.authorWorkWatermark();
+					videoAd.show()
 				} else {
 					this.watermark();
+				}
+			},
+			// 激励广告
+			showVideoAd() {
+				if (wx.createRewardedVideoAd) {
+					videoAd = wx.createRewardedVideoAd({
+						adUnitId: 'adunit-1dc983d402c3db58'
+					})
+					videoAd.onError((err) => {
+						videoAd.load()
+					})
+					videoAd.onClose((res) => {
+						if (!res.isEnded) return uni.showModal({
+							title: "解析失败",
+							content: "还没看完呢！不能偷懒哦！",
+							confirmText: "重新开始",
+							success: (res) => {
+								if (res.confirm) videoAd.show()
+							}
+						})
+						this.authorWorkWatermark();
+					})
 				}
 			},
 			//短视频解析
 			watermark() {
 				let todayCount = this.userData.watermark_count++
 				let allCount = this.userData.cumulative++
-				this.isMP = this.url.includes("mp.weixin.qq.com");
 				let updateData = {
 					watermark_count: todayCount,
 					cumulative: allCount
 				}
-				//订阅
 				watermark({
 					link: this.url
 				}).then(res => {
-					// userStore.updateUserInfo(updateData)
+					console.log(res, 336);
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
 					let imgUrl = this.ensureHttps(data.imageSrc)
 					let videoUrl = this.ensureHttps(data.videoSrc)
@@ -228,21 +236,7 @@
 						imageSrc: imgUrl,
 						videoSrc: videoUrl,
 						imageAtlas: imageAtlas, // 初始化为传入的 imageAtlas
-						isMP: this.isMP
 					};
-					// 如果 isMP 为真，则处理 videoUrl 中的图像链接
-					if (this.isMP) {
-						const imgSrcHttpsRegex =
-							/<img\s+[^>]*?src=['"](https:[^'"]*)['"][^>]*?>/g;
-						const urls = [];
-						let match;
-						while ((match = imgSrcHttpsRegex.exec(videoUrl)) !== null) {
-							urls.push(match[1]);
-						}
-						// 只更新 imageAtlas 属性
-						this.detialData.imageAtlas = urls;
-					}
-					if (!this.isMP) this.setDataLog()
 					this.url = ""
 					uni.navigateTo({
 						url: '/pages/analysis/analysisDetial/index?config=' +
