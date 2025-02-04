@@ -106,7 +106,8 @@
 				allCount: 0,
 				detialData: {},
 				isBach: false,
-				tutorial: false
+				tutorial: false,
+				userIds: ['6770c3177ad52d72fc8f5bba'],
 			}
 		},
 		onShareAppMessage() {
@@ -123,9 +124,9 @@
 			userData() {
 				return userStore.userInfo
 			},
-			isAdmin() {
-				return this.tools.isAdminRole()
-			}
+			isAdvertisement() {
+				return this.tools.isCurrentUser(this.userIds) || this.tools.isAdminRole()
+			},
 		},
 		onLoad() {
 			if (uni.getStorageSync('uni_id_token')) this.getVoucher()
@@ -188,6 +189,7 @@
 			// 提取的公共方法
 			handleWatermark() {
 				if (this.isBach) {
+					if (this.isAdvertisement) return this.authorWorkWatermark();
 					videoAd.show()
 				} else {
 					this.watermark();

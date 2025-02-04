@@ -142,6 +142,7 @@
 				this.isBatch = true
 				this.batchCont = 0
 				this.$nextTick(() => {
+					if (this.isAdvertisement) return this.handleDownloads(this.batchCont, 'img')
 					videoAd.show()
 				})
 			},
