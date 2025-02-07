@@ -2,7 +2,7 @@
 	<view class="coupon-v" :style="{paddingBottom:safeAreaInsets+'px'}">
 		<u-tabs :list="list" :current="current" @change="tabChange"></u-tabs>
 		<view class="coupon-content">
-			<view class="u-m-t-20 u-m-b-20">
+			<view class="u-m-t-20 u-m-b-20" v-if="!isAdvertisement">
 				<!-- 本地生活 -->
 				<ad-custom unit-id="adunit-d78bf1b2b0340e67" ad-intervals="30"></ad-custom>
 			</view>
@@ -31,12 +31,21 @@
 				current: 0
 			}
 		},
-		onLoad() {
-			this.getAdList()
+		onLoad(e) {
+			if (e && e.index) {
+				this.tabChange(e.index)
+			} else {
+				this.getAdList()
+			}
 			const {
 				safeAreaInsets
 			} = uni.getSystemInfoSync();
 			this.safeAreaInsets = safeAreaInsets.bottom;
+		},
+		computed: {
+			isAdvertisement() {
+				return this.tools.isAdminRole()
+			}
 		},
 		methods: {
 			tabChange(e) {

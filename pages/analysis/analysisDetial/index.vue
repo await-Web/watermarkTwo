@@ -3,7 +3,7 @@
 		<view>
 			<view class="u-flex-col content  u-p-l-20 u-p-r-20">
 				<!-- 解析完成页 -->
-				<view class="u-m-t-20">
+				<view class="u-m-t-20" v-if="!isAdvertisement">
 					<ad-custom unit-id="adunit-b05cb67c43c204e1" ad-intervals="30"></ad-custom>
 				</view>
 				<!-- 描述 -->
@@ -23,12 +23,14 @@
 				<!-- 图片 -->
 				<view v-if="imageAtlas?.length">
 					<view class="u-m-t-20 u-flex top-btn">
-						<view>
-							<u-button size="mini" type="warning" @click="clearAll" class="u-m-r-10">{{`清空`}}</u-button>
-							<u-button size="mini" type="primary" v-if="multipleUrlList.length"
-								@click="batchDownload">{{`批量下载 (${multipleUrlList.length})`}}</u-button>
-							<u-button size="mini" type="primary" v-else @click="batchDownload">{{`批量下载`}}</u-button>
-						</view>
+						<u-button size="mini" type="warning" @click="clearAll" class="u-m-r-10">{{`清空`}}</u-button>
+						<u-button size="mini" type="primary" v-if="multipleUrlList.length"
+							@click="batchDownload">{{`批量下载 (${multipleUrlList.length})`}}</u-button>
+						<u-button size="mini" type="primary" v-else @click="batchDownload">{{`批量下载`}}</u-button>
+						<u-button size="mini" type="error" class="u-m-l-10" @click="jumpAd(0)">点外卖 先领券</u-button>
+						<u-button size="mini" type="error" class="u-m-l-10" @click="jumpAd(1)">滴滴打车 先领券</u-button>
+						<u-button size="mini" type="error" class="u-m-l-10 u-m-t-10" @click="jumpAd(2)">酒店开房
+							先领券</u-button>
 					</view>
 					<view class="imgs-box u-flex">
 						<scroll-view scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
@@ -110,6 +112,11 @@
 			}
 		},
 		methods: {
+			jumpAd(i) {
+				uni.navigateTo({
+					url: "/pages/coupon/index?index=" + i
+				})
+			},
 			//处理图片数据
 			handleImageAtlas() {
 				if (this.imageAtlas?.length) {
@@ -401,11 +408,11 @@
 			background-color: #f0f2f6;
 
 			.top-btn {
-				padding: 0 20rpx;
-				justify-content: flex-start;
+				padding: 20rpx;
+				flex-wrap: wrap;
 				border-radius: 8rpx;
 				width: 100%;
-				height: 88rpx;
+				min-height: 88rpx;
 				background-color: #fff;
 			}
 
