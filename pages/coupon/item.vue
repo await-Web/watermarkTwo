@@ -25,11 +25,6 @@
 				default: () => []
 			}
 		},
-		data() {
-			return {
-
-			}
-		},
 		onShareAppMessage(e) {
 			return {
 				title: '优惠券 天天有 天天领',

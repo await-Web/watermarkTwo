@@ -4,7 +4,7 @@
 		<u-toast ref="uToast" />
 		<view class="u-m-t-20" style="background-color: #fff;border-radius: 18rpx;">
 			<u-swiper :list="imgList"></u-swiper>
-			<view class="u-m-b-20 u-m-t-20">
+			<view class="u-m-b-20 u-m-t-20" v-if="!isAdvertisement">
 				<ad-custom unit-id="adunit-8b48ae39936f9fa5" ad-intervals="30"></ad-custom>
 			</view>
 		</view>
@@ -41,7 +41,7 @@
 				</view>
 				<view class="card-item u-p-20 u-flex" @click="jumWebview('translate')">
 					<view class="card-item-r">
-						<view class="title">AI翻译</view>
+						<view class="title">翻译</view>
 						<view class="content">将输入的文本翻译成指定语言</view>
 					</view>
 					<view class="card-item-l">
