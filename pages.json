@@ -9,13 +9,13 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "灯泡去水印"
+				"navigationBarTitleText": "去水印免费工具"
 			}
 		},
 		{
 			"path": "pages/index/my",
 			"style": {
-				"navigationBarTitleText": "个人中心"
+				"navigationBarTitleText": "短视频去水印"
 			}
 		},
 		{
@@ -45,7 +45,7 @@
 		"pages": [{
 			"path": "analysisDetial/index",
 			"style": {
-				"navigationBarTitleText": "提取完毕"
+				"navigationBarTitleText": "无损去水印"
 			}
 		}, {
 			"path": "batch/index",

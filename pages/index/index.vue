@@ -13,6 +13,7 @@
 				<view class="u-flex u-m-b-10">
 					<kxSwitch @change="switchChange" label="主页解析"></kxSwitch>
 					<kxSwitch @change="openTutorial" label="使用教程" class="u-m-l-10" labelColor="#07c160"></kxSwitch>
+					<text class="u-m-l-10">短视频去水印</text>
 				</view>
 				<u-input v-model="url" type="textarea" :border="true" :clearable="true" placeholder="此处粘贴分享链接"
 					border-color="#fcc31f" />
@@ -228,7 +229,6 @@
 				watermark({
 					link: this.url
 				}).then(res => {
-					console.log(res, 336);
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
 					let imgUrl = this.ensureHttps(data.imageSrc)
 					let videoUrl = this.ensureHttps(data.videoSrc)

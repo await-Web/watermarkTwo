@@ -124,7 +124,9 @@ const tools = {
 	},
 	//根据id判断用户
 	isCurrentUser(uid) {
-		return uniCloud.getCurrentUserInfo().uid.includes(uid)
+		let currentUser = uniCloud.getCurrentUserInfo()
+		if (currentUser?.uid) return currentUser?.uid.includes(uid)
+		return false
 	},
 	// 获取当前年月日时分秒带转时间戳
 	getCurrentDateTime(type) {
