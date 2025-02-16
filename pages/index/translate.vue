@@ -29,7 +29,7 @@
 								分享
 								<text class="u-m-l-10 item-icon icon-kx icon-kx-wechat-fill"></text>
 							</u-button>
-							<u-button type="primary" size="mini" class="u-m-l-12" @click="openAd">翻译</u-button>
+							<u-button type="primary" size="mini" class="u-m-l-12" @click="openAd">看广告翻译</u-button>
 						</view>
 					</view>
 				</view>
