@@ -109,6 +109,10 @@
 				isBach: false,
 				tutorial: false,
 				userIds: ['6770c3177ad52d72fc8f5bba'],
+				isImg: false,
+				videoSrc: '',
+				imageSrc: '',
+				imageAtlas: []
 			}
 		},
 		onShareAppMessage() {
@@ -230,16 +234,23 @@
 					link: this.url
 				}).then(res => {
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
-					let imgUrl = this.ensureHttps(data.imageSrc)
-					let videoUrl = this.ensureHttps(data.videoSrc)
-					let imageAtlas = data.imageAtlas.map(o => this.ensureHttps(o))
+					const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(/^http:\/\//,
+						'https://');
+					if (Array.isArray(data.imageAtlas) && data.imageAtlas.length) {
+						this.isImg = true;
+						this.imageAtlas = data.imageAtlas.map(ensureHttps);
+					}
+					if (data.imageSrc) this.imageSrc = ensureHttps(data.imageSrc);
+					if (data.videoSrc) this.videoSrc = ensureHttps(data.videoSrc);
 					this.detialData = {
 						...data,
-						imageSrc: imgUrl,
-						videoSrc: videoUrl,
-						imageAtlas: imageAtlas, // 初始化为传入的 imageAtlas
+						imageSrc: this.imageSrc,
+						videoSrc: this.videoSrc,
+						imageAtlas: this.imageAtlas,
+						isImg: this.isImg
 					};
 					this.url = ""
+					this.setDataLog()
 					uni.navigateTo({
 						url: '/pages/analysis/analysisDetial/index?config=' +
 							encodeURIComponent(JSON
@@ -274,9 +285,6 @@
 						})
 					}
 				})
-			},
-			ensureHttps(url) {
-				return url.replace(/^http:\/\//i, 'https://');
 			}
 		}
 	}

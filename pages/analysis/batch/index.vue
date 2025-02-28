@@ -53,6 +53,10 @@
 					},
 					textNoMore: "没有更多数据",
 				},
+				videoSrc: '',
+				imageSrc: '',
+				imageAtlas: [],
+				isImg: false
 			}
 		},
 		onShow() {
@@ -81,22 +85,29 @@
 				}
 			},
 			jumpDetial(item) {
-				let imgUrl = this.ensureHttps(item.imageSrc)
-				let videoUrl = this.ensureHttps(item.videoSrc)
-				let imageAtlas = item.imageAtlas.map(o => this.ensureHttps(o))
+				this.imageSrc = ''
+				this.videoSrc = ''
+				this.imageAtlas = []
+				this.isImg = false
+				const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(/^http:\/\//,
+					'https://');
+				if (Array.isArray(item.imageAtlas) && item.imageAtlas.length) {
+					this.isImg = true;
+					this.imageAtlas = item.imageAtlas.map(ensureHttps);
+				}
+				if (item.imageSrc) this.imageSrc = ensureHttps(item.imageSrc);
+				if (item.videoSrc) this.videoSrc = ensureHttps(item.videoSrc);
 				this.detialData = {
 					...item,
-					imageSrc: imgUrl,
-					videoSrc: videoUrl,
-					imageAtlas: imageAtlas
-				}
+					imageSrc: this.imageSrc,
+					videoSrc: this.videoSrc,
+					imageAtlas: this.imageAtlas,
+					isImg: this.isImg
+				};
 				uni.navigateTo({
 					url: '/pages/analysis/analysisDetial/index?config=' + encodeURIComponent(JSON
 						.stringify(this.detialData))
 				})
-			},
-			ensureHttps(url) {
-				return url.replace(/^http:\/\//i, 'https://');
 			},
 			upCallback() {
 				if (this.showAnalysisDetial) return this.mescroll.endErr();

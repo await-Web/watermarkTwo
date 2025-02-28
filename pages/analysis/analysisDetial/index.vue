@@ -10,27 +10,23 @@
 				<view class="u-m-t-20 url-input u-m-b-20">
 					<view class="u-flex u-m-b-10">
 						<u-button size="mini" type="primary" @click="copy(title)" v-if="title">复制标题</u-button>
-						<u-button v-if="detialData.description" size="mini" type="primary"
-							@click="copy(detialData.description)" class="u-m-l-10">复制文案</u-button>
+						<u-button v-if="config.description" size="mini" type="primary" @click="copy(config.description)"
+							class="u-m-l-10">复制文案</u-button>
 					</view>
 					<view class="u-p-20 textareaStyle" v-if="title">
 						<u-input v-model="title" type="textarea" disabled maxlength="9999999" />
 					</view>
-					<view class="u-p-20 textareaStyle u-m-t-10" v-if="detialData.description">
-						<u-input v-model="detialData.description" disabled />
+					<view class="u-p-20 textareaStyle u-m-t-10" v-if="config.description">
+						<u-input v-model="config.description" disabled />
 					</view>
 				</view>
 				<!-- 图片 -->
-				<view v-if="imageAtlas?.length">
+				<view v-if="config.isImg">
 					<view class="u-m-t-20 u-flex top-btn">
 						<u-button size="mini" type="warning" @click="clearAll" class="u-m-r-10">{{`清空`}}</u-button>
 						<u-button size="mini" type="primary" v-if="multipleUrlList.length"
 							@click="batchDownload">{{`批量下载 (${multipleUrlList.length})`}}</u-button>
 						<u-button size="mini" type="primary" v-else @click="batchDownload">{{`批量下载`}}</u-button>
-						<u-button size="mini" type="error" class="u-m-l-10" @click="jumpAd(0)">点外卖 先领券</u-button>
-						<u-button size="mini" type="error" class="u-m-l-10" @click="jumpAd(1)">滴滴打车 先领券</u-button>
-						<u-button size="mini" type="error" class="u-m-l-10 u-m-t-10" @click="jumpAd(2)">酒店开房
-							先领券</u-button>
 					</view>
 					<view class="imgs-box u-flex">
 						<scroll-view scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
@@ -44,7 +40,7 @@
 										</view>
 										<image :src="item.url" class="image-sty" @tap="previewImage(index)"></image>
 										<u-button v-if="!isMultiple" type="primary" size="mini"
-											@click="handleDownloads(index,'img')"
+											@click="downloadImg(index)"
 											style="position: absolute;bottom: 8rpx;left: 8rpx;">下载</u-button>
 									</view>
 								</view>
@@ -56,17 +52,15 @@
 					</view>
 				</view>
 				<!-- 视频 -->
-				<view v-if="detialData.videoSrc">
+				<view v-if="!config.isImg">
 					<view class="u-m-t-20 video-box">
-						<video id="myVideo" :src="detialData.videoSrc" controls></video>
+						<video id="myVideo" :src="config.videoSrc" controls></video>
 					</view>
 					<view class="u-flex btn-box">
-						<u-button type="primary" size="medium"
-							@click="handleDownloads(detialData.videoSrc,'video')">下载视频</u-button>
-						<u-button type="primary" size="medium"
-							@click="handleDownloads(detialData.imageSrc,'img')">下载封面</u-button>
-						<u-button type="success" size="medium" @click="copy(detialData.videoSrc)">复制无水印视频链接</u-button>
-						<u-button type="success" size="medium" @click="copy(detialData.imageSrc)">复制无水印封面链接</u-button>
+						<u-button type="primary" size="medium" @click="downloadVideo(config.videoSrc)">下载视频</u-button>
+						<!-- <u-button type="primary" size="medium" @click="downloadImg(config.imageSrc)">下载封面</u-button> -->
+						<u-button type="success" size="medium" @click="copy(config.videoSrc)">复制无水印视频链接</u-button>
+						<u-button type="success" size="medium" @click="copy(config.imageSrc)">复制无水印封面链接</u-button>
 					</view>
 				</view>
 			</view>
@@ -76,7 +70,7 @@
 </template>
 <script>
 	// #ifdef MP-WEIXIN
-	const fs = wx.getFileSystemManager()
+	// const fs = wx.getFileSystemManager()
 	// #endif
 	let videoAd = null
 	export default {
@@ -85,7 +79,7 @@
 				show: false,
 				showTips: false,
 				newTime: +new Date(),
-				detialData: {},
+				config: {},
 				batchCont: 0,
 				imageAtlas: [],
 				multipleUrlList: [],
@@ -95,13 +89,7 @@
 			}
 		},
 		onLoad(e) {
-			/* 插屏广告 */
-			this.tools.wxAd('adunit-7aa1c46635182c64')
-			this.detialData = JSON.parse(decodeURIComponent(e.config));
-			this.title = this.detialData.title
-			this.imageAtlas = JSON.parse(JSON.stringify(this.detialData.imageAtlas))
-			this.handleImageAtlas()
-			this.showVideoAd();
+			this.init(e)
 		},
 		computed: {
 			isAdvertisement() {
@@ -112,10 +100,14 @@
 			}
 		},
 		methods: {
-			jumpAd(i) {
-				uni.navigateTo({
-					url: "/pages/coupon/index?index=" + i
-				})
+			init(e) {
+				/* 插屏广告 */
+				this.tools.wxAd('adunit-7aa1c46635182c64')
+				this.config = JSON.parse(decodeURIComponent(e.config));
+				this.title = this.config.title
+				this.imageAtlas = JSON.parse(JSON.stringify(this.config.imageAtlas))
+				this.handleImageAtlas()
+				this.showVideoAd();
 			},
 			//处理图片数据
 			handleImageAtlas() {
@@ -149,7 +141,7 @@
 				this.isBatch = true
 				this.batchCont = 0
 				this.$nextTick(() => {
-					if (this.isAdvertisement) return this.handleDownloads(this.batchCont, 'img')
+					if (this.isAdvertisement) return this.downloadImg(this.batchCont)
 					videoAd.show()
 				})
 			},
@@ -172,7 +164,7 @@
 								if (res.cancel) this.resetValue()
 							}
 						})
-						this.handleDownloads(this.batchCont, 'img')
+						this.downloadImg(this.batchCont)
 					})
 				}
 			},
@@ -189,32 +181,37 @@
 			// 预览图片
 			previewImage(i) {
 				uni.previewImage({
-					urls: this.detialData.imageAtlas,
+					urls: this.config.imageAtlas,
 					current: i,
 					longPressActions: {
 						itemList: ['发送给朋友', '保存图片', '收藏'],
 						success: function(data) {
 							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
 						},
-						fail: function(err) {
-							console.log(err.errMsg);
-						}
+						fail: function(err) {}
 					}
 				});
 			},
-			//处理解析后的数据
-			handleDownloads(index, type) {
+			/* 下载图片 */
+			downloadImg(index) {
 				let imgData = this.isMultiple ? this.multipleUrlList : this.imageAtlas
-				let url = type === 'img' ? imgData[index].url : index
-				var downloadTask = uni.downloadFile({
-					url: url,
-					timeout: 6000000,
+				let url = imgData[index].url
+				uni.downloadFile({
+					url,
 					success: (res) => {
-						if (res.statusCode === 200) {
-							if (type === 'img') this.saveImage(res.tempFilePath)
-							if (type === 'video') this.handleVideoFile('video', `${this.newTime}.mp4`, res
-								.tempFilePath)
-						}
+						let filePath = res.tempFilePath;
+						this.saveImage(filePath)
+					}
+				});
+			},
+			/* 下载视频 */
+			downloadVideo(src) {
+				var downloadTask = uni.downloadFile({
+					url: src,
+					timeout: 10 * 60 * 1000,
+					success: (res) => {
+						if (res.statusCode === 200) this.handleVideoFile('video', `${this.newTime}.mp4`, res
+							.tempFilePath)
 					},
 					fail: (err) => {
 						this.resetValue()
@@ -228,7 +225,7 @@
 							return
 						}
 						uni.showToast({
-							title: "下载失败，请复制链接去浏览器下载",
+							title: "下载失败，请复制链666接去浏览器下载",
 							icon: "none"
 						})
 					}
@@ -256,7 +253,7 @@
 								});
 								return
 							}
-							this.handleDownloads(this.batchCont, 'img')
+							this.downloadImg(this.batchCont)
 						}
 						uni.showToast({
 							title: '已保存在手机相册中',
@@ -269,7 +266,7 @@
 							return;
 						}
 						uni.showToast({
-							title: '无法保存到手机,复制无水印视频链接',
+							title: '无法保存到手机,复制无水印链接',
 							icon: 'none',
 						});
 					}
@@ -281,7 +278,7 @@
 				uni.saveVideoToPhotosAlbum({
 					filePath: tempFilePath,
 					success: (res) => {
-						this.delContents()
+						// this.delContents()
 						uni.showToast({
 							title: '已保存在手机相册中',
 							icon: 'none',
@@ -296,32 +293,11 @@
 					}
 				})
 			},
-			/* 删除目录 */
-			delContents() {
-				try {
-					fs.rmdirSync(`${wx.env.USER_DATA_PATH}/video`, true)
-				} catch (e) {
-					console.error('fsrmdir', e)
-				}
-			},
 			//处理视频文件
-			async handleVideoFile(dir, filePath, tempFilePath) {
-				await this.delContents()
-				await this.handleDirectory(dir)
+			handleVideoFile(dir, filePath, tempFilePath) {
 				this.$nextTick(() => {
 					this.saveVideoFile(tempFilePath)
 				})
-			},
-			//处理文件目录
-			handleDirectory(url) {
-				//判断文件/目录是否存在
-				try {
-					fs.accessSync(`${wx.env.USER_DATA_PATH}/${url}`)
-				} catch (e) {
-					try {
-						fs.mkdirSync(`${wx.env.USER_DATA_PATH}/${url}`, true)
-					} catch (e) {}
-				}
 			},
 			//复制
 			copy(text) {
