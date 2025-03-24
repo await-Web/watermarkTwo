@@ -225,7 +225,7 @@
 							return
 						}
 						uni.showToast({
-							title: "下载失败，请复制链666接去浏览器下载",
+							title: "下载失败，请复制链接去浏览器下载",
 							icon: "none"
 						})
 					}
@@ -287,7 +287,7 @@
 					fail: (err) => {
 						if (err.errMsg == 'saveVideoToPhotosAlbum:fail cancel') return //取消，不做操作
 						uni.showToast({
-							title: '无法保存到手机,复制无水印视频链接',
+							title: '无法保存到手机,请复制链接去浏览器下载',
 							icon: 'none',
 						});
 					}
