@@ -42,7 +42,6 @@
 					<view class="u-flex u-p-l-24 u-p-r-24 btn">
 						<view class="u-flex">
 							<view class="icon-kx icon-kx-fuzhi2 icon-sty u-m-l-5" @click="copyContent('res')"></view>
-							<u-button size="mini" type="error" class="u-m-l-10" @click="jumpAd(0)">点外卖 先领券</u-button>
 						</view>
 					</view>
 				</view>
@@ -129,11 +128,6 @@
 			this.showVideoAd();
 		},
 		methods: {
-			jumpAd(i) {
-				uni.navigateTo({
-					url: "/pages/coupon/index?index=" + i
-				})
-			},
 			clear() {
 				this.translationRes = ""
 				this.value = ""
