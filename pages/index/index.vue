@@ -31,6 +31,24 @@
 				src="https://mp-89c324e5-79a8-4fa7-ab60-b83b46b5dd6b.cdn.bspapp.com/tutorial/94069d034ceff71eefa709524a998643.mp4"
 				v-show="tutorial"></video>
 			<view class="card u-flex u-m-t-20">
+				<view class="card-item u-p-20 u-flex" @click="jumWebview('mp2')">
+					<view class="card-item-r">
+						<view class="title">小决定大转盘</view>
+						<view class="content">决定转盘，好运转盘，自定义转盘</view>
+					</view>
+					<view class="card-item-l">
+						<text class="icon-kx icon-kx-bizhi3 icon-sty" style="color: #ffcb77;"></text>
+					</view>
+				</view>
+				<view class="card-item u-p-20 u-flex" @click="jumWebview('mp')">
+					<view class="card-item-r">
+						<view class="title">高清手机壁纸</view>
+						<view class="content">手机壁纸，ins壁纸，4k壁纸，iphone壁纸</view>
+					</view>
+					<view class="card-item-l">
+						<text class="icon-kx icon-kx-bizhi3 icon-sty" style="color: #ffcb77;"></text>
+					</view>
+				</view>
 				<view class="card-item u-p-20 u-flex" @click="jumWebview('ad')">
 					<view class="card-item-r">
 						<view class="title">大红包</view>
@@ -108,7 +126,7 @@
 				detialData: {},
 				isBach: false,
 				tutorial: false,
-				userIds: ['6770c3177ad52d72fc8f5bba'],
+				userIds: ['6770c3177ad52d72fc8f5bba', '6770e167ee97ef719510b218', '66f7b4f321821bdf93d152f9'],
 				isImg: false,
 				videoSrc: '',
 				imageSrc: '',
@@ -234,7 +252,8 @@
 					link: this.url
 				}).then(res => {
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
-					const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(/^http:\/\//,
+					const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(
+						/^http:\/\//,
 						'https://');
 					if (Array.isArray(data.imageAtlas) && data.imageAtlas.length) {
 						this.isImg = true;
