@@ -43,6 +43,16 @@ export default {
 						url: "/pages/coupon/index"
 					})
 					break;
+				case 'mp':
+					navigateToMiniProgram('wx6de225232bc44061',
+						'/pages/index/index'
+					);
+					break;
+				case 'mp2':
+					navigateToMiniProgram('wxf3688e4135f14d27',
+						'/pages/List/index'
+					);
+					break;
 				default:
 
 					break;

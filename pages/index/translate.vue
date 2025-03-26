@@ -101,7 +101,7 @@
 				translationRes: "",
 				translationcopy: '',
 				lang: '英语',
-				userIds: ['66f7b4f321821bdf93d152f9'],
+				userIds: ['6770c3177ad52d72fc8f5bba', '6770e167ee97ef719510b218', '66f7b4f321821bdf93d152f9'],
 			}
 		},
 		computed: {

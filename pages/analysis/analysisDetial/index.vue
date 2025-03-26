@@ -24,6 +24,8 @@
 				<view v-if="config.isImg">
 					<view class="u-m-t-20 u-flex top-btn">
 						<u-button size="mini" type="warning" @click="clearAll" class="u-m-r-10">{{`清空`}}</u-button>
+						<u-button size="mini" type="error" @click="jumpMP('biz')" class="u-m-r-10">立即前往壁纸小程序</u-button>
+						<u-button size="mini" type="error" @click="jumpMP('zp')" class="u-m-r-10">抽奖转盘</u-button>
 						<u-button size="mini" type="primary" v-if="multipleUrlList.length"
 							@click="batchDownload">{{`批量下载 (${multipleUrlList.length})`}}</u-button>
 						<u-button size="mini" type="primary" v-else @click="batchDownload">{{`批量下载`}}</u-button>
@@ -44,7 +46,7 @@
 											style="position: absolute;bottom: 8rpx;left: 8rpx;">下载</u-button>
 									</view>
 								</view>
-								<view class="glare-effect" @click="jump">
+								<view class="glare-effect" @click="jumpMP">
 									查看更多壁纸
 								</view>
 							</view>
@@ -84,7 +86,7 @@
 				imageAtlas: [],
 				multipleUrlList: [],
 				isBatch: false,
-				userIds: ['6770c3177ad52d72fc8f5bba'],
+				userIds: ['6770c3177ad52d72fc8f5bba', '6770e167ee97ef719510b218', '66f7b4f321821bdf93d152f9'],
 				title: ''
 			}
 		},
@@ -172,6 +174,38 @@
 			resetValue() {
 				this.isBatch = false;
 				this.batchCont = 0
+			},
+			jumpMP(type) {
+				const navigateToMiniProgram = (appId, path, envVersion = 'release') => {
+					uni.navigateToMiniProgram({
+						appId,
+						path,
+						envVersion,
+						success(res) {
+							// 可以在这里添加统一的成功处理逻辑  
+							console.log('小程序打开成功', res);
+						},
+						fail(err) {
+							// 可以在这里添加统一的失败处理逻辑  
+							console.error('小程序打开失败', err);
+						}
+					});
+				};
+				switch (type) {
+					case 'biz':
+						navigateToMiniProgram('wx6de225232bc44061',
+							'/pages/index/index'
+						);
+						break;
+					case 'zp':
+						navigateToMiniProgram('wxf3688e4135f14d27',
+							'/pages/List/index'
+						);
+						break;
+					default:
+
+						break;
+				}
 			},
 			jump() {
 				uni.navigateTo({
