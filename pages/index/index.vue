@@ -58,7 +58,7 @@
 						<text class="icon-kx icon-kx-hongbao1 icon-sty" style="color: #e60012;"></text>
 					</view>
 				</view>
-				<view class="card-item u-p-20 u-flex" @click="jumWebview('translate')">
+				<!-- <view class="card-item u-p-20 u-flex" @click="jumWebview('translate')">
 					<view class="card-item-r">
 						<view class="title">翻译</view>
 						<view class="content">将输入的文本翻译成指定语言</view>
@@ -66,7 +66,7 @@
 					<view class="card-item-l">
 						<text class="icon-kx icon-kx-fanyi-full icon-sty" style="color: #4e5a5a;"></text>
 					</view>
-				</view>
+				</view> -->
 				<view class="card-item u-p-20 u-flex" @click="jumWebview('record')">
 					<view class="card-item-r">
 						<view class="title">解析记录</view>
