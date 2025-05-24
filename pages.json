@@ -18,12 +18,12 @@
 				"navigationBarTitleText": "短视频去水印"
 			}
 		},
-		{
-			"path": "pages/index/diy",
-			"style": {
-				"navigationBarTitleText": "diy手机壳"
-			}
-		},
+		// {
+		// 	"path": "pages/index/diy",
+		// 	"style": {
+		// 		"navigationBarTitleText": "diy手机壳"
+		// 	}
+		// },
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -119,13 +119,13 @@
 				"pagePath": "pages/index/my",
 				"iconPath": "static/image/self.png",
 				"selectedIconPath": "static/image/self-h.png"
-			},
-			{
-				"text": "diy",
-				"pagePath": "pages/index/diy",
-				"iconPath": "static/image/self.png",
-				"selectedIconPath": "static/image/self-h.png"
 			}
+			// {
+			// 	"text": "diy",
+			// 	"pagePath": "pages/index/diy",
+			// 	"iconPath": "static/image/self.png",
+			// 	"selectedIconPath": "static/image/self-h.png"
+			// }
 		]
 	},
 	"uniIdRouter": {
