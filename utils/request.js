@@ -46,7 +46,7 @@ function request(config) {
 			success: res => {
 				uni.hideLoading()
 				if (res.statusCode === 200) {
-					if (res.data.code == 1) {
+					if (res.data.code == 200) {
 						resolve(res.data)
 					} else {
 						ajaxError(res.data)

@@ -25,9 +25,7 @@
 </template>
 <script>
 	import {
-		getVoucher,
-		watermark,
-		authorWorkWatermark
+		watermark
 	} from "@/api/external.js";
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
 	export default {
@@ -86,7 +84,6 @@
 		},
 		onLoad(e) {
 			this.current = e.index || 0
-			this.getVoucher()
 			this.share()
 		},
 		methods: {
@@ -107,54 +104,23 @@
 				this.current = e
 				this.reset()
 			},
-			//获取接口调用凭据
-			getVoucher() {
-				let data = {
-					appid: '66bc5fb2a5d7e1241SihJ',
-					appsecret: '6B0TruSB7SvwczwF4vZ0iTiOXPZOcJST'
-				}
-				getVoucher(data).then(res => {
-					uni.setStorageSync('externalToken', res.data.token) || ''
-				})
-			},
+			
 			//短视频解析
 			watermark(item) {
 				if (!item.link) return this.$u.toast("分享链接不能为空")
-				let data = {
-					link: item.link
-				}
-				watermark(data).then(res => {
+				watermark(item.link).then(res => {
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
-					if (data.videoSrc) return this.$u.toast("这个暂时看不了！")
+					if (data.video_url) return this.$u.toast("这个暂时看不了！")
 					uni.navigateTo({
 						url: '/pages/analysis/wallpaper/index?config=' + encodeURIComponent(JSON
 							.stringify(data))
 					})
-				}).catch(err => {
-					this.authorWorkWatermark(item)
-				})
+				}).catch(err => {})
 			},
 			ensureHttps(url) {
 				return url.replace(/^http:\/\//i, 'https://');
 			},
-			//批量解析
-			authorWorkWatermark(item) {
-				if (!item.link) return this.$u.toast("分享链接不能为空")
-				let data = {
-					appid: '66bc5fb2a5d7e1241SihJ',
-					appsecret: '6B0TruSB7SvwczwF4vZ0iTiOXPZOcJST',
-					link: item.link
-				}
-				authorWorkWatermark(data).then(res => {
-					let data = JSON.parse(JSON.stringify(res.data)) || {}
-					if (res.code == '1') {
-						uni.navigateTo({
-							url: '/pages/analysis/wallpaper/index?config=' + encodeURIComponent(JSON
-								.stringify(data))
-						})
-					}
-				})
-			},
+			
 			upCallback(page) {
 				let type = this.current == '0' ? 'current' : 'all'
 				let query = {

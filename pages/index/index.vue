@@ -11,7 +11,7 @@
 		<view class="tool-content">
 			<view class="u-m-t-20 url-input">
 				<view class="u-flex u-m-b-10">
-					<kxSwitch @change="switchChange" label="主页解析"></kxSwitch>
+					<!-- <kxSwitch @change="switchChange" label="主页解析"></kxSwitch> -->
 					<kxSwitch @change="openTutorial" label="使用教程" class="u-m-l-10" labelColor="#07c160"></kxSwitch>
 					<text class="u-m-l-10">短视频去水印</text>
 				</view>
@@ -99,9 +99,7 @@
 	} from "@/store/user.js"
 	const userStore = useUserStore()
 	import {
-		getVoucher,
-		watermark,
-		authorWorkWatermark
+		watermark
 	} from "@/api/external.js";
 	const subscribemsg = uniCloud.importObject('subscribeMessage')
 	import comMixin from './mixin'
@@ -152,7 +150,6 @@
 			},
 		},
 		onLoad() {
-			if (uni.getStorageSync('uni_id_token')) this.getVoucher()
 			this.showVideoAd();
 		},
 		methods: {
@@ -160,16 +157,7 @@
 			openTutorial(e) {
 				this.tutorial = e
 			},
-			//获取接口调用凭据
-			getVoucher() {
-				let data = {
-					appid: '66bc5fb2a5d7e1241SihJ',
-					appsecret: '6B0TruSB7SvwczwF4vZ0iTiOXPZOcJST'
-				}
-				getVoucher(data).then(res => {
-					uni.setStorageSync('externalToken', res.data.token) || ''
-				})
-			},
+			
 			//获取次数
 			getWatermarkCount() {
 				uniCloud.callFunction({
@@ -211,12 +199,16 @@
 			},
 			// 提取的公共方法
 			handleWatermark() {
-				if (this.isBach) {
-					if (this.isAdvertisement) return this.authorWorkWatermark();
-					videoAd.show()
-				} else {
-					this.watermark();
-				}
+				
+				this.watermark();
+				
+				
+				// if (this.isBach) {
+				// 	if (this.isAdvertisement) return this.authorWorkWatermark();
+				// 	videoAd.show()
+				// } else {
+				// 	this.watermark();
+				// }
 			},
 			// 激励广告
 			showVideoAd() {
@@ -248,19 +240,16 @@
 					watermark_count: todayCount,
 					cumulative: allCount
 				}
-				watermark({
-					link: this.url
-				}).then(res => {
+				watermark(this.url).then(res => {
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
-					const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(
-						/^http:\/\//,
+					const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(/^http:\/\//,
 						'https://');
-					if (Array.isArray(data.imageAtlas) && data.imageAtlas.length) {
+					if (data.video_url) this.videoSrc = ensureHttps(data.video_url);
+					if (data.cover_url) this.imageSrc = ensureHttps(data.cover_url);
+					if (Array.isArray(data.images) && data.images.length) {
 						this.isImg = true;
-						this.imageAtlas = data.imageAtlas.map(ensureHttps);
+						this.imageAtlas = data.images.map(ensureHttps);
 					}
-					if (data.imageSrc) this.imageSrc = ensureHttps(data.imageSrc);
-					if (data.videoSrc) this.videoSrc = ensureHttps(data.videoSrc);
 					this.detialData = {
 						...data,
 						imageSrc: this.imageSrc,
@@ -271,9 +260,8 @@
 					this.url = ""
 					this.setDataLog()
 					uni.navigateTo({
-						url: '/pages/analysis/analysisDetial/index?config=' +
-							encodeURIComponent(JSON
-								.stringify(this.detialData))
+						url: '/pages/analysis/analysisDetial/index?config=' + encodeURIComponent(JSON
+							.stringify(this.detialData))
 					})
 				}).catch(err => {})
 			},

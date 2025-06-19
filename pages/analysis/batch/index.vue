@@ -21,8 +21,7 @@
 	const fs = wx.getFileSystemManager()
 	// #endif
 	import {
-		watermark,
-		authorWorkWatermark
+		watermark
 	} from "@/api/external.js";
 	import waterfallItem from './waterfall-item.vue'
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
@@ -117,14 +116,14 @@
 					link: this.bathData.link,
 					max_cursor: this.bathData.max_cursor
 				};
-				authorWorkWatermark(query).then(res => {
-					this.mescroll.endSuccess(res.data.aweme_list.length);
-					this.bathData = res.data || {}
-					let list = this.bathData.aweme_list || [];
-					this.dataList = this.dataList.concat(list)
-				}).catch(err => {
-					this.mescroll.endErr();
-				})
+				// authorWorkWatermark(query).then(res => {
+				// 	this.mescroll.endSuccess(res.data.aweme_list.length);
+				// 	this.bathData = res.data || {}
+				// 	let list = this.bathData.aweme_list || [];
+				// 	this.dataList = this.dataList.concat(list)
+				// }).catch(err => {
+				// 	this.mescroll.endErr();
+				// })
 			}
 		}
 	}

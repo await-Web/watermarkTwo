@@ -8,11 +8,18 @@ export function getVoucher(data) {
 }
 
 // 短视频解析
-export function watermark(data) {
+// export function watermark(data) {
+// 	return request({
+// 		url: `https://watermark-api.hlyphp.top/Watermark/Index`,
+// 		method: 'POST',
+// 		data
+// 	})
+// }
+
+export function watermark(url) {
 	return request({
-		url: `https://watermark-api.hlyphp.top/Watermark/Index`,
-		method: 'POST',
-		data
+		url: `https://watermark.feasible.com.cn/video/share/url/parse?url=${url}`,
+		method: 'get'
 	})
 }
 
@@ -22,29 +29,5 @@ export function authorWorkWatermark(data) {
 		url: `https://watermark-api.hlyphp.top/AuthorWork/Index`,
 		method: 'POST',
 		data
-	})
-}
-// 获取关联表单弹窗列表
-export function getRelationSelect(id, data, options) {
-	return request({
-		url: `/api/visualdev/Base/${id}/FieldDataSelect`,
-		data,
-		options: {
-			load: false
-		}
-	})
-}
-export function getAppVersion() {
-	return request({
-		url: `/api/app/Version`
-	})
-}
-// 获取数据字典数据
-export function getDictionaryDataAll() {
-	return request({
-		url: '/api/system/DictionaryData/All',
-		options: {
-			load: false
-		}
 	})
 }
