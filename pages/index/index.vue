@@ -157,7 +157,7 @@
 			openTutorial(e) {
 				this.tutorial = e
 			},
-			
+
 			//获取次数
 			getWatermarkCount() {
 				uniCloud.callFunction({
@@ -199,16 +199,7 @@
 			},
 			// 提取的公共方法
 			handleWatermark() {
-				
 				this.watermark();
-				
-				
-				// if (this.isBach) {
-				// 	if (this.isAdvertisement) return this.authorWorkWatermark();
-				// 	videoAd.show()
-				// } else {
-				// 	this.watermark();
-				// }
 			},
 			// 激励广告
 			showVideoAd() {
@@ -240,7 +231,9 @@
 					watermark_count: todayCount,
 					cumulative: allCount
 				}
-				watermark(this.url).then(res => {
+				const regex = /https?:\/\/[\w\-._~:/?#[\]@!$&'()*+,;=]+([/?#][^\s"]*)?/gi;
+				const matches = this.url.match(regex);
+				watermark(matches[0]).then(res => {
 					let data = JSON.parse(JSON.stringify(res.data)) || {}
 					const ensureHttps = (url) => url.startsWith('https://') ? url : url.replace(/^http:\/\//,
 						'https://');
