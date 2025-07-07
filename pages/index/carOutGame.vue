@@ -26,8 +26,8 @@
 		      'vertical': car.dir === 'v'
 		    }" :style="carStyle(car)" @touchstart="onTouchStart($event, idx)" @touchmove="onTouchMove($event, idx)"
 					@touchend="onTouchEnd($event, idx)">
-					<text v-if="car.isMyCar" class="car-val">{{ car.value+idx }}</text>
-					<text class="car-val" v-if="!car.isMyCar">{{car.value +idx}}</text>
+					<text v-if="car.isMyCar" class="car-val">{{ car.value}}</text>
+					<text class="car-val" v-if="!car.isMyCar">{{car.value}}</text>
 				</view>
 				<!-- 出口 -->
 				<view class="exit-horizontal" :style="exitStyle">出口</view>
@@ -51,9 +51,9 @@
 		data() {
 			return {
 				isMute: true,
-				exit: 4, // 出口位置
-				gridSizeX: 12, // 固定为12
-				gridSizeY: 9, // 固定为9
+				exit: 2, // 出口位置
+				gridSizeX: 7, // 固定为7
+				gridSizeY: 6, // 固定为6
 				cars: [],
 				startX: 0,
 				startY: 0,
@@ -73,8 +73,8 @@
 					// 关卡1（当前关卡）
 					[{
 							value: '🚑',
-							x: 5,
-							y: 1,
+							x: 0,
+							y: 0,
 							len: 3,
 							dir: 'h',
 							bgc: '#0055ff',
@@ -82,702 +82,88 @@
 						},
 						{
 							value: '🚕',
-							x: 2,
+							x: 0,
 							y: 1,
-							len: 2,
+							len: 3,
 							dir: 'v',
 							bgc: '#555500',
 							id: 1
 						},
 						{
 							value: '🚌',
-							x: 4,
-							y: 2,
-							len: 3,
+							x: 2,
+							y: 1,
+							len: 2,
 							dir: 'v',
 							bgc: '#55aa00',
 							id: 2
 						},
 						{
 							value: '🚚',
-							x: 8,
-							y: 0,
-							len: 3,
-							dir: 'v',
-							bgc: '#ff8800',
-							id: 3
-						},
-						{
-							value: '🚒',
-							x: 10,
-							y: 2,
-							len: 2,
-							dir: 'v',
-							bgc: '#ff0000',
-							id: 4
-						},
-						{
-							value: '🚙',
-							x: 5,
-							y: 4,
-							len: 2,
-							dir: 'v',
-							bgc: '#00bbbb',
-							id: 5
-						},
-						{
-							value: '🚓',
-							x: 0,
-							y: 4,
-							len: 2,
-							dir: 'h',
-							isMyCar: true,
-							bgc: '#000000',
-							id: 6
-						},
-						{
-							value: '🚗',
 							x: 1,
 							y: 3,
 							len: 2,
 							dir: 'h',
-							bgc: '#aa55ff',
-							id: 7
-						},
-						{
-							value: '🚘',
-							x: 2,
-							y: 5,
-							len: 3,
-							dir: 'h',
-							bgc: '#ff55aa',
-							id: 8
-						},
-						{
-							value: '🚕',
-							x: 7,
-							y: 6,
-							len: 2,
-							dir: 'v',
-							bgc: '#888800',
-							id: 9
-						},
-						{
-							value: '🚙',
-							x: 9,
-							y: 7,
-							len: 2,
-							dir: 'h',
-							bgc: '#00bb88',
-							id: 10
-						},
-						{
-							value: '🛻',
-							x: 6,
-							y: 5,
-							len: 3,
-							dir: 'h',
-							bgc: '#8888ff',
-							id: 11
-						},
-						{
-							value: '🚐',
-							x: 2,
-							y: 6,
-							len: 2,
-							dir: 'v',
-							bgc: '#00aaff',
-							id: 12
-						},
-						{
-							value: '🚛',
-							x: 10,
-							y: 4,
-							len: 3,
-							dir: 'v',
-							bgc: '#ffaa00',
-							id: 13
-						},
-					],
-					// 关卡2（超高难度，重新设计，确保无重叠）
-					[{
-							value: '🚓',
-							x: 0,
-							y: 4,
-							len: 2,
-							dir: 'h',
-							isMyCar: true,
-							bgc: '#000000',
-							id: 0
-						},
-						{
-							value: '🚑',
-							x: 2,
-							y: 0,
-							len: 3,
-							dir: 'h',
-							bgc: '#0055ff',
-							id: 1
-						},
-						{
-							value: '🚕',
-							x: 4,
-							y: 0,
-							len: 2,
-							dir: 'v',
-							bgc: '#555500',
-							id: 2
-						},
-						{
-							value: '🚌',
-							x: 6,
-							y: 0,
-							len: 3,
-							dir: 'v',
-							bgc: '#55aa00',
-							id: 3
-						},
-						{
-							value: '🚚',
-							x: 8,
-							y: 0,
-							len: 3,
-							dir: 'v',
-							bgc: '#ff8800',
-							id: 4
-						},
-						{
-							value: '🚒',
-							x: 10,
-							y: 0,
-							len: 2,
-							dir: 'v',
-							bgc: '#ff0000',
-							id: 5
-						},
-						{
-							value: '🚙',
-							x: 1,
-							y: 2,
-							len: 2,
-							dir: 'v',
-							bgc: '#00bbbb',
-							id: 6
-						},
-						{
-							value: '🚗',
-							x: 3,
-							y: 2,
-							len: 2,
-							dir: 'h',
-							bgc: '#aa55ff',
-							id: 7
-						},
-						{
-							value: '🚘',
-							x: 5,
-							y: 3,
-							len: 3,
-							dir: 'h',
-							bgc: '#ff55aa',
-							id: 8
-						},
-						{
-							value: '🚕',
-							x: 7,
-							y: 4,
-							len: 2,
-							dir: 'v',
-							bgc: '#888800',
-							id: 9
-						},
-						{
-							value: '🚙',
-							x: 9,
-							y: 5,
-							len: 2,
-							dir: 'h',
-							bgc: '#00bb88',
-							id: 10
-						},
-						{
-							value: '🛻',
-							x: 2,
-							y: 6,
-							len: 3,
-							dir: 'h',
-							bgc: '#8888ff',
-							id: 11
-						},
-						{
-							value: '🚐',
-							x: 6,
-							y: 6,
-							len: 2,
-							dir: 'v',
-							bgc: '#00aaff',
-							id: 12
-						},
-						{
-							value: '🚛',
-							x: 8,
-							y: 7,
-							len: 3,
-							dir: 'v',
-							bgc: '#ffaa00',
-							id: 13
-						},
-						{
-							value: '🚒',
-							x: 10,
-							y: 6,
-							len: 2,
-							dir: 'h',
-							bgc: '#ff0000',
-							id: 14
-						},
-					],
-					// 关卡3（超高难度）
-					[{
-							value: '🚑',
-							x: 1,
-							y: 0,
-							len: 3,
-							dir: 'h',
-							bgc: '#0055ff',
-							id: 0
-						},
-						{
-							value: '🚕',
-							x: 3,
-							y: 1,
-							len: 2,
-							dir: 'v',
-							bgc: '#555500',
-							id: 1
-						},
-						{
-							value: '🚌',
-							x: 5,
-							y: 2,
-							len: 3,
-							dir: 'v',
-							bgc: '#55aa00',
-							id: 2
-						},
-						{
-							value: '🚚',
-							x: 7,
-							y: 3,
-							len: 3,
-							dir: 'v',
 							bgc: '#ff8800',
 							id: 3
 						},
 						{
-							value: '🚒',
-							x: 9,
-							y: 4,
-							len: 2,
-							dir: 'v',
-							bgc: '#ff0000',
-							id: 4
-						},
-						{
-							value: '🚙',
-							x: 2,
-							y: 5,
-							len: 2,
-							dir: 'v',
-							bgc: '#00bbbb',
-							id: 5
-						},
-						{
 							value: '🚓',
-							x: 0,
-							y: 4,
+							x: 3,
+							y: 2,
 							len: 2,
 							dir: 'h',
 							isMyCar: true,
 							bgc: '#000000',
-							id: 6
+							id: 4
 						},
 						{
 							value: '🚗',
-							x: 1,
-							y: 3,
-							len: 2,
-							dir: 'h',
-							bgc: '#aa55ff',
-							id: 7
-						},
-						{
-							value: '🚘',
-							x: 4,
-							y: 6,
-							len: 3,
-							dir: 'h',
-							bgc: '#ff55aa',
-							id: 8
-						},
-						{
-							value: '🚕',
-							x: 8,
-							y: 7,
-							len: 2,
-							dir: 'v',
-							bgc: '#888800',
-							id: 9
-						},
-						{
-							value: '🚙',
-							x: 10,
-							y: 8,
-							len: 2,
-							dir: 'h',
-							bgc: '#00bb88',
-							id: 10
-						},
-						{
-							value: '🛻',
-							x: 6,
-							y: 7,
-							len: 3,
-							dir: 'h',
-							bgc: '#8888ff',
-							id: 11
-						},
-						{
-							value: '🚐',
-							x: 3,
-							y: 6,
-							len: 2,
-							dir: 'v',
-							bgc: '#00aaff',
-							id: 12
-						},
-						{
-							value: '🚛',
-							x: 11,
-							y: 5,
-							len: 3,
-							dir: 'v',
-							bgc: '#ffaa00',
-							id: 13
-						},
-						{
-							value: '🚚',
-							x: 8,
+							x: 5,
 							y: 2,
-							len: 3,
+							len: 2,
 							dir: 'v',
-							bgc: '#ff8800',
-							id: 14
+							bgc: '#aa55ff',
+							id: 5
 						},
 						{
-							value: '🚒',
-							x: 4,
-							y: 3,
-							len: 2,
-							dir: 'h',
-							bgc: '#ff0000',
-							id: 15
-						},
-					],
-					// 关卡4（超高难度）
-					[{
-							value: '🚑',
-							x: 2,
+							value: '🚗',
+							x: 5,
 							y: 0,
-							len: 3,
-							dir: 'h',
-							bgc: '#0055ff',
-							id: 0
-						},
-						{
-							value: '🚕',
-							x: 4,
-							y: 1,
 							len: 2,
 							dir: 'v',
-							bgc: '#555500',
-							id: 1
-						},
-						{
-							value: '🚌',
-							x: 6,
-							y: 2,
-							len: 3,
-							dir: 'v',
-							bgc: '#55aa00',
-							id: 2
-						},
-						{
-							value: '🚚',
-							x: 8,
-							y: 3,
-							len: 3,
-							dir: 'v',
-							bgc: '#ff8800',
-							id: 3
-						},
-						{
-							value: '🚒',
-							x: 10,
-							y: 4,
-							len: 2,
-							dir: 'v',
-							bgc: '#ff0000',
-							id: 4
-						},
-						{
-							value: '🚙',
-							x: 3,
-							y: 5,
-							len: 2,
-							dir: 'v',
-							bgc: '#00bbbb',
-							id: 5
-						},
-						{
-							value: '🚓',
-							x: 0,
-							y: 4,
-							len: 2,
-							dir: 'h',
-							isMyCar: true,
-							bgc: '#000000',
+							bgc: '#ffffff',
 							id: 6
 						},
 						{
-							value: '🚗',
-							x: 2,
-							y: 3,
+							value: '🚙',
+							x: 5,
+							y: 4,
 							len: 2,
 							dir: 'h',
-							bgc: '#aa55ff',
+							bgc: '#00bbbb',
 							id: 7
 						},
 						{
+							value: '🚗',
+							x: 4,
+							y: 3,
+							len: 3,
+							dir: 'v',
+							bgc: '#aa55ff',
+							id: 8
+						},
+						{
 							value: '🚘',
-							x: 5,
-							y: 6,
+							x: 0,
+							y: 5,
 							len: 3,
 							dir: 'h',
 							bgc: '#ff55aa',
 							id: 8
-						},
-						{
-							value: '🚕',
-							x: 9,
-							y: 7,
-							len: 2,
-							dir: 'v',
-							bgc: '#888800',
-							id: 9
-						},
-						{
-							value: '🚙',
-							x: 11,
-							y: 8,
-							len: 2,
-							dir: 'h',
-							bgc: '#00bb88',
-							id: 10
-						},
-						{
-							value: '🛻',
-							x: 7,
-							y: 7,
-							len: 3,
-							dir: 'h',
-							bgc: '#8888ff',
-							id: 11
-						},
-						{
-							value: '🚐',
-							x: 4,
-							y: 6,
-							len: 2,
-							dir: 'v',
-							bgc: '#00aaff',
-							id: 12
-						},
-						{
-							value: '🚛',
-							x: 10,
-							y: 5,
-							len: 3,
-							dir: 'v',
-							bgc: '#ffaa00',
-							id: 13
-						},
-						{
-							value: '🚚',
-							x: 9,
-							y: 2,
-							len: 3,
-							dir: 'v',
-							bgc: '#ff8800',
-							id: 14
-						},
-						{
-							value: '🚒',
-							x: 5,
-							y: 3,
-							len: 2,
-							dir: 'h',
-							bgc: '#ff0000',
-							id: 15
-						},
-					],
-					// 关卡5（超高难度）
-					[{
-							value: '🚑',
-							x: 3,
-							y: 0,
-							len: 3,
-							dir: 'h',
-							bgc: '#0055ff',
-							id: 0
-						},
-						{
-							value: '🚕',
-							x: 5,
-							y: 1,
-							len: 2,
-							dir: 'v',
-							bgc: '#555500',
-							id: 1
-						},
-						{
-							value: '🚌',
-							x: 7,
-							y: 2,
-							len: 3,
-							dir: 'v',
-							bgc: '#55aa00',
-							id: 2
-						},
-						{
-							value: '🚚',
-							x: 9,
-							y: 3,
-							len: 3,
-							dir: 'v',
-							bgc: '#ff8800',
-							id: 3
-						},
-						{
-							value: '🚒',
-							x: 11,
-							y: 4,
-							len: 2,
-							dir: 'v',
-							bgc: '#ff0000',
-							id: 4
-						},
-						{
-							value: '🚙',
-							x: 4,
-							y: 5,
-							len: 2,
-							dir: 'v',
-							bgc: '#00bbbb',
-							id: 5
-						},
-						{
-							value: '🚓',
-							x: 0,
-							y: 4,
-							len: 2,
-							dir: 'h',
-							isMyCar: true,
-							bgc: '#000000',
-							id: 6
-						},
-						{
-							value: '🚗',
-							x: 3,
-							y: 3,
-							len: 2,
-							dir: 'h',
-							bgc: '#aa55ff',
-							id: 7
-						},
-						{
-							value: '🚘',
-							x: 6,
-							y: 6,
-							len: 3,
-							dir: 'h',
-							bgc: '#ff55aa',
-							id: 8
-						},
-						{
-							value: '🚕',
-							x: 10,
-							y: 7,
-							len: 2,
-							dir: 'v',
-							bgc: '#888800',
-							id: 9
-						},
-						{
-							value: '🚙',
-							x: 8,
-							y: 8,
-							len: 2,
-							dir: 'h',
-							bgc: '#00bb88',
-							id: 10
-						},
-						{
-							value: '🛻',
-							x: 7,
-							y: 7,
-							len: 3,
-							dir: 'h',
-							bgc: '#8888ff',
-							id: 11
-						},
-						{
-							value: '🚐',
-							x: 5,
-							y: 6,
-							len: 2,
-							dir: 'v',
-							bgc: '#00aaff',
-							id: 12
-						},
-						{
-							value: '🚛',
-							x: 11,
-							y: 5,
-							len: 3,
-							dir: 'v',
-							bgc: '#ffaa00',
-							id: 13
-						},
-						{
-							value: '🚚',
-							x: 10,
-							y: 2,
-							len: 3,
-							dir: 'v',
-							bgc: '#ff8800',
-							id: 14
-						},
-						{
-							value: '🚒',
-							x: 6,
-							y: 3,
-							len: 2,
-							dir: 'h',
-							bgc: '#ff0000',
-							id: 15
-						},
-					],
+						}
+					]
+
 				],
 			}
 		},
@@ -788,10 +174,10 @@
 					const h = res.windowHeight
 					// 保证棋盘不超出屏幕且比例为12:9
 					let boardW = w
-					let boardH = w * 9 / 12
+					let boardH = w * 7 / 6
 					if (boardH > h) {
 						boardH = h
-						boardW = h * 12 / 9
+						boardW = h * 6 / 7
 					}
 					this.boardW = boardW
 					this.boardH = boardH
@@ -823,7 +209,6 @@
 						this.passedLevels = [] // 默认没有任何关卡通过
 					}
 				} catch (e) {
-					console.error('加载关卡记录失败:', e)
 					this.passedLevels = [] // 默认没有任何关卡通过
 				}
 			},
@@ -832,11 +217,7 @@
 			savePassedLevels() {
 				try {
 					uni.setStorageSync('passedLevels', JSON.stringify(this.passedLevels))
-					// 这里可以添加数据库保存逻辑
-					console.log('关卡记录已保存:', this.passedLevels)
-				} catch (e) {
-					console.error('保存关卡记录失败:', e)
-				}
+				} catch (e) {}
 			},
 
 			// 检查关卡是否已通过
@@ -868,7 +249,6 @@
 			},
 			onLevelChange(e) {
 				const newLevel = Number(e.detail.value)
-
 				// 检查关卡是否已解锁
 				if (!this.isLevelUnlocked(newLevel)) {
 					uni.showToast({
@@ -878,7 +258,6 @@
 					})
 					return
 				}
-
 				this.selectedLevel = newLevel
 				this.initGame()
 			},
@@ -922,8 +301,6 @@
 						});
 						this[config.name] = audio;
 					} catch (e) {
-						console.error(`初始化${config.name}失败:`, e);
-						// 可选：创建空对象避免后续调用报错
 						this[config.name] = {
 							play: () => {},
 							stop: () => {}
@@ -937,9 +314,7 @@
 				if (this.collisionAudio) {
 					try {
 						this.collisionAudio.play();
-					} catch (e) {
-						console.error('播放碰撞音频失败:', e);
-					}
+					} catch (e) {}
 				}
 			},
 			// 播放通关音频
@@ -947,9 +322,7 @@
 				if (this.winAudio) {
 					try {
 						this.winAudio.play();
-					} catch (e) {
-						console.error('播放通关音频失败:', e);
-					}
+					} catch (e) {}
 				}
 			},
 			// 车辆样式
@@ -983,12 +356,9 @@
 			// 触摸移动
 			onTouchMove(e, idx) {
 				if (this.movingIdx !== idx) return
-
-				// 节流处理，减少计算频率
 				const now = Date.now()
 				if (now - this.lastMoveTime < 16) return // 约60fps
 				this.lastMoveTime = now
-
 				const car = this.cars[idx]
 				const touch = e.touches[0]
 				const boardW = this.boardW
@@ -1005,7 +375,8 @@
 					let pos = origin
 					let lastSafe = origin
 					let loopCount = 0
-					while (((step > 0 && pos < target) || (step < 0 && pos > target)) && loopCount < 5) { // 大幅减少循环次数
+					while (((step > 0 && pos < target) || (step < 0 && pos > target)) && loopCount <
+						5) { // 大幅减少循环次数
 						let next = pos + step
 						if ((step > 0 && next > target) || (step < 0 && next < target)) next = target
 						if (this.checkCollision(idx, Math.round(next), car.y)) break
@@ -1023,7 +394,8 @@
 					let pos = origin
 					let lastSafe = origin
 					let loopCount = 0
-					while (((step > 0 && pos < target) || (step < 0 && pos > target)) && loopCount < 5) { // 大幅减少循环次数
+					while (((step > 0 && pos < target) || (step < 0 && pos > target)) && loopCount <
+						5) { // 大幅减少循环次数
 						let next = pos + step
 						if ((step > 0 && next > target) || (step < 0 && next < target)) next = target
 						if (this.checkCollision(idx, car.x, Math.round(next))) break
@@ -1126,7 +498,7 @@
 				const gridX = this.boardW / this.gridSizeX;
 				const gridY = this.boardH / this.gridSizeY;
 				const exitH = gridY;
-				const y = this.exit; // 第9行，索引从0开始
+				const y = this.exit; // 第6行，索引从0开始
 				return `
 		left: ${this.boardW - gridX * 0.8}px;
 		top: ${y * gridY}px;
@@ -1149,8 +521,8 @@
 		.level-header {
 			width: 100vw;
 			text-align: center;
-			margin-bottom: 20px;
-			padding: 20px;
+			margin-bottom: 40rpx;
+			padding: 40rpx;
 			position: relative;
 			z-index: 10;
 
@@ -1159,10 +531,10 @@
 				justify-content: center;
 				align-items: center;
 				background: rgba(255, 255, 255, 0.95);
-				border-radius: 20px;
-				padding: 15px 30px;
-				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 40rpx;
+				padding: 30rpx 30px;
+				box-shadow: 0 16rpx 64rpx rgba(0, 0, 0, 0.1);
+				border: 2rpx solid rgba(255, 255, 255, 0.2);
 				transition: transform 0.2s ease;
 
 				&:active {
@@ -1175,21 +547,21 @@
 				}
 
 				.level-text {
-					font-size: 28px;
+					font-size: 56rpx;
 					font-weight: bold;
 					color: #333;
-					margin-right: 15px;
+					margin-right: 30rpx;
 				}
 
 				.move-count {
-					font-size: 28px;
+					font-size: 56rpx;
 					font-weight: bold;
 					color: #ff6f00;
 					background: linear-gradient(45deg, #ff6f00, #ff8f00);
 					color: white;
-					padding: 6px 12px;
-					border-radius: 12px;
-					box-shadow: 0 2px 8px rgba(255, 111, 0, 0.3);
+					padding: 12rpx 24rpx;
+					border-radius: 24rpx;
+					box-shadow: 0 4rpx 16rpx rgba(255, 111, 0, 0.3);
 				}
 			}
 		}
@@ -1216,40 +588,40 @@
 				align-items: center;
 				justify-content: center;
 				z-index: 100;
-				padding: 20px;
+				padding: 40rpx;
 
 				.reset-btn {
 					background: linear-gradient(45deg, #ff6f00, #ff8f00);
 					color: #fff;
 					border: none;
-					border-radius: 20px;
+					border-radius: 40rpx;
 					font-size: 30rpx;
 					font-weight: bold;
-					padding: 15px 40px;
-					box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
+					padding: 30rpx 80rpx;
+					box-shadow: 0 12rpx 40rpx rgba(255, 111, 0, 0.4);
 					cursor: pointer;
 					user-select: none;
 					transition: transform 0.2s ease;
 					text-transform: uppercase;
-					letter-spacing: 1px;
+					letter-spacing: 2rpx;
 
 					&:active {
-						transform: translateY(2px);
+						transform: translateY(4rpx);
 					}
 				}
 			}
 
 			.game-board-horizontal {
 				background: linear-gradient(145deg, #2c3e50, #34495e);
-				border-radius: 20px;
+				border-radius: 40rpx;
 				margin: 0;
-				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+				box-shadow: 0 40rpx 80rpx rgba(0, 0, 0, 0.3);
 				overflow: hidden;
 				display: block;
 				z-index: 1;
 				position: relative;
 				touch-action: none;
-				border: 2px solid rgba(255, 255, 255, 0.1);
+				border: 4rpx solid rgba(255, 255, 255, 0.1);
 
 				.grid-line-vertical {
 					pointer-events: none;
@@ -1263,7 +635,7 @@
 
 				.car {
 					position: absolute;
-					border-radius: 12px;
+					border-radius: 24rpx;
 					color: #fff;
 					font-size: 32rpx;
 					display: flex;
@@ -1271,9 +643,9 @@
 					justify-content: center;
 					user-select: none;
 					transition: transform 0.1s ease;
-					box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+					box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.3);
 					touch-action: none;
-					border: 2px solid rgba(255, 255, 255, 0.2);
+					border: 4rpx solid rgba(255, 255, 255, 0.2);
 
 					&:active {
 						transform: scale(0.95);
@@ -1282,16 +654,17 @@
 					.car-val {
 						display: inline-block;
 						width: 100%;
-						height: 100%;
+						// height: 100%;
 						text-align: center;
 						font-weight: bold;
-						text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+						text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.5);
+						font-size: 72rpx;
 					}
 				}
 
 				.my-car {
-					box-shadow: 0 6px 20px rgba(255, 111, 0, 0.4);
-					border: 2px solid rgba(255, 111, 0, 0.6);
+					box-shadow: 0 12rpx 40rpx rgba(255, 111, 0, 0.4);
+					border: 4rpx solid rgba(255, 111, 0, 0.6);
 
 					&:active {
 						transform: scale(0.95);
@@ -1307,11 +680,11 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					border-radius: 0 12px 12px 0;
+					border-radius: 0 24rpx 24rpx 0;
 					z-index: 1;
-					box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
-					border: 2px solid rgba(255, 255, 255, 0.3);
-					text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+					box-shadow: 0 8rpx 24rpx rgba(39, 174, 96, 0.4);
+					border: 4rpx solid rgba(255, 255, 255, 0.3);
+					text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
 				}
 			}
 
@@ -1329,35 +702,35 @@
 
 				.win-content {
 					background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-					border-radius: 20px;
-					padding: 60px 40px;
+					border-radius: 40rpx;
+					padding: 120rpx 80rpx;
 					text-align: center;
-					font-size: 36px;
+					font-size: 312rpx;
 					color: #fff;
-					box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-					border: 2px solid rgba(255, 255, 255, 0.2);
+					box-shadow: 0 40rpx 80rpx rgba(0, 0, 0, 0.3);
+					border: 4rpx solid rgba(255, 255, 255, 0.2);
 
 					.win-buttons {
 						display: flex;
 						justify-content: space-around;
-						margin-top: 40px;
-						gap: 15px;
+						margin-top: 80rpx;
+						gap: 30rpx;
 
 						.next-level-btn {
 							background: linear-gradient(45deg, #27ae60, #2ecc71);
 							color: #fff;
 							border: none;
-							border-radius: 20px;
-							font-size: 24px;
+							border-radius: 40rpx;
+							font-size: 48rpx;
 							font-weight: bold;
-							padding: 12px 20px;
-							box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+							padding: 24rpx 40rpx;
+							box-shadow: 0 8rpx 24rpx rgba(39, 174, 96, 0.4);
 							transition: transform 0.2s ease;
-							letter-spacing: 0.5px;
+							letter-spacing: 1rpx;
 							min-width: 80px;
 
 							&:active {
-								transform: translateY(2px);
+								transform: translateY(4rpx);
 							}
 						}
 
@@ -1365,17 +738,17 @@
 							background: linear-gradient(45deg, #ff6f00, #ff8f00);
 							color: #fff;
 							border: none;
-							border-radius: 20px;
-							font-size: 24px;
+							border-radius: 40rpx;
+							font-size: 48rpx;
 							font-weight: bold;
-							padding: 12px 20px;
-							box-shadow: 0 4px 12px rgba(255, 111, 0, 0.4);
+							padding: 24rpx 40rpx;
+							box-shadow: 0 8rpx 24rpx rgba(255, 111, 0, 0.4);
 							transition: transform 0.2s ease;
-							letter-spacing: 0.5px;
-							min-width: 80px;
+							letter-spacing: 1rpx;
+							min-width: 160rpx;
 
 							&:active {
-								transform: translateY(2px);
+								transform: translateY(4rpx);
 							}
 						}
 					}
