@@ -49,8 +49,8 @@ export default {
 					);
 					break;
 				case 'mp2':
-					navigateToMiniProgram('wxf3688e4135f14d27',
-						'/pages/List/index'
+					navigateToMiniProgram('wx2600396f84069a12',
+						'/pages/index/square'
 					);
 					break;
 				default:
