@@ -23,29 +23,9 @@ export default {
 				});
 			};
 			switch (type) {
-				case 'md5':
-					uni.navigateTo({
-						url: '/pages/analysis/mdFive/index'
-					});
-					break;
-				case 'record':
-					uni.navigateTo({
-						url: '/pages/my/dataLog/index'
-					});
-					break;
-				case 'translate':
-					uni.switchTab({
-						url: "/pages/index/translate"
-					})
-					break;
-				case 'ad':
-					uni.navigateTo({
-						url: "/pages/coupon/index"
-					})
-					break;
 				case 'mp':
-					navigateToMiniProgram('wx6de225232bc44061',
-						'/pages/index/index'
+					navigateToMiniProgram('wx848300787475c5e6',
+						'/pages/home/home'
 					);
 					break;
 				case 'mp2':

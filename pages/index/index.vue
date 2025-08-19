@@ -42,47 +42,11 @@
 				</view>
 				<view class="card-item u-p-20 u-flex" @click="jumWebview('mp')">
 					<view class="card-item-r">
-						<view class="title">高清手机壁纸</view>
-						<view class="content">手机壁纸，ins壁纸，4k壁纸，iphone壁纸</view>
+						<view class="title">动车时刻查询</view>
+						<view class="content">坐车别错过站,点击查看动车停站信息吧!</view>
 					</view>
 					<view class="card-item-l">
 						<text class="icon-kx icon-kx-bizhi3 icon-sty" style="color: #ffcb77;"></text>
-					</view>
-				</view>
-				<view class="card-item u-p-20 u-flex" @click="jumWebview('ad')">
-					<view class="card-item-r">
-						<view class="title">大红包</view>
-						<view class="content">美团，饿了么，电影票，流量卡，打车优惠券等</view>
-					</view>
-					<view class="card-item-l">
-						<text class="icon-kx icon-kx-hongbao1 icon-sty" style="color: #e60012;"></text>
-					</view>
-				</view>
-				<!-- <view class="card-item u-p-20 u-flex" @click="jumWebview('translate')">
-					<view class="card-item-r">
-						<view class="title">翻译</view>
-						<view class="content">将输入的文本翻译成指定语言</view>
-					</view>
-					<view class="card-item-l">
-						<text class="icon-kx icon-kx-fanyi-full icon-sty" style="color: #4e5a5a;"></text>
-					</view>
-				</view> -->
-				<view class="card-item u-p-20 u-flex" @click="jumWebview('record')">
-					<view class="card-item-r">
-						<view class="title">解析记录</view>
-						<view class="content">查看解析记录</view>
-					</view>
-					<view class="card-item-l">
-						<text class="icon-kx icon-kx-jilu icon-sty" style="color: #73aa2b;"></text>
-					</view>
-				</view>
-				<view class="card-item u-p-20 u-flex" @click="jumWebview('md5')">
-					<view class="card-item-r">
-						<view class="title">修改MD5</view>
-						<view class="content">提高视频原创度</view>
-					</view>
-					<view class="card-item-l">
-						<text class="icon-kx icon-kx-MD51 icon-sty" style="color: #5a491f;"></text>
 					</view>
 				</view>
 			</view>
